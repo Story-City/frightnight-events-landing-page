@@ -1,0 +1,63 @@
+<div class="w-full text-white font-hacked">
+  <div class="bg-cyan/25 pr-4 py-6 cta-wrapper flex lg:max-w-[630px]">
+    <div class="cta-content flex flex-col lg:flex-row">
+      <div>
+        <div class="text-2xl leading-tight tracking-wide pl-16">Up to 6 players</div>
+        <div class="flex items-center pl-22">
+          <span class="text-red text-xl line-through mr-4.5 tracking-wide">$37.50</span>
+          <span class="text-[32px] leading-tight tracking-wide">$30</span>
+        </div>
+      </div>
+
+      <a href="#tickets" class="ml-24 buy-tickets-btn block">
+        <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
+        <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cta-wrapper {
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 21% 100%);
+  }
+
+  @media (min-width: 1024px) {
+    .cta-wrapper {
+      clip-path: polygon(0 0, 80% 0%, 100% 100%, 20% 100%);
+    }
+  }
+
+  .buy-tickets-btn {
+    padding: 13px 60px;
+    box-sizing: border-box;
+    position: relative;
+    width: fit-content;
+    text-decoration: none;
+    margin-top: 12px;
+  }
+
+  @media (min-width: 768px) {
+    .buy-tickets-btn {
+      padding: 13px 100px;
+    }
+  }
+
+  .buy-tickets-btn__fill {
+    position: absolute;
+    inset: 2px;
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
+    z-index: 0;
+  }
+
+  .buy-tickets-btn__text {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    color: #000;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: 7%;
+    text-transform: uppercase;
+  }
+</style>

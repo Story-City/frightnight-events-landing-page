@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'Helvetica Compressed';
+    src: url('/helvetica.otf');
+}
+@font-face {
+    font-family: 'HACKED';
+    src: url('/hacked.ttf');
+}
+
+@theme {
+  --color-dark-gray: #B0B0B0;
+  --color-light-gray: #DFDFDF;
+  --color-red: #AC3E3E;
+  --color-neon: #3CE0F2;
+  --color-cyan: #0F7D89;
+  --color-black: #010912;
+  --font-compressed: "Helvetica Compressed", sans-serif;
+  --font-hacked: "HACKED", sans-serif;
+  --font-abeezee: "ABeeZee", sans-serif;
+  --tracking-wide: 7%;
+}

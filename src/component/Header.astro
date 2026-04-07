@@ -1,0 +1,78 @@
+<div class="w-full min-h-[640px] bg-cover bg-center text-white font-hacked">
+  <div class="hero-content w-full min-h-[640px] relative py-6 px-5">
+    <a href="#tickets" class="buy-tickets-btn block lg:hidden">
+      <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
+      <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
+    </a>
+
+    <div class="text-2xl flex flex-col md:flex-row">
+      <span class="tracking-wide">LOCATION</span>
+      <span class="hidden md:inline mx-3">/</span>
+      <span class="tracking-wide">DATE</span>
+    </div>
+
+    <div class="grid grid-cols-1 grid-rows-1 absolute bottom-6 md:bottom-36">
+      <div class="headline-bg col-start-1 row-start-1"></div>
+      <div class="col-start-1 row-start-1 z-10">
+        <h1 class="text-4xl md:text-5xl lg:text-4xl leading-tight text-light-gray tracking-wide">
+          Hunt ghosts. <br /> Survive hauntings. <br /> Save your city.
+        </h1>
+        <h2 class="text-2xl ml-7 tracking-wide">Immersive Mobile Adventure</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-content {
+    background-blend-mode: darken;
+    background:
+      linear-gradient(
+        356.33deg,
+        rgba(255, 255, 255, 0) -29.82%,
+        rgba(73, 75, 77, 0.714286) -19.96%,
+        #000306 -10.39%,
+        #000e1c 13.72%,
+        #264d58 20.8%,
+        rgba(0, 54, 108, 0) 28.76%
+      ),
+      linear-gradient(140.69deg, rgba(0, 0, 0, 0.58) 9.83%, rgba(0, 0, 0, 0) 30.13%),
+      url('/bg.jpg') no-repeat center center / cover;
+  }
+
+  .headline-bg {
+    background: linear-gradient(180deg, #33afc1 0%, #b4f4ff 100%);
+    filter: blur(16px);
+    border-radius: 560px;
+    opacity: 0.31;
+    width: 100%;
+    height: 100%;
+  }
+
+  .buy-tickets-btn {
+    padding: 10px 60px;
+    box-sizing: border-box;
+    position: relative;
+    width: fit-content;
+    text-decoration: none;
+    margin-bottom: 36px;
+    margin-top: 24px;
+  }
+
+  .buy-tickets-btn__fill {
+    position: absolute;
+    inset: 2px;
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
+    z-index: 0;
+  }
+
+  .buy-tickets-btn__text {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    color: #000;
+    font-size: 16px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+</style>
