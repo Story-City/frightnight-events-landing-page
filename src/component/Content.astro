@@ -1,27 +1,37 @@
-<section class="w-full bg-black text-dark-gray font-compressed relative overflow-hidden py-4">
-  <div class="px-11 mt-5">
-    <h3 class="text-2xl leading-tight tracking-wide font-medium mb-6">
-      Hunt ghosts. Survive hauntings. Save your city.
-    </h3>
-    <p class="text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
-      Think you have what it takes to brave a thrilling ghost hunt in the streets of [CITY]? Part haunted tales, part
-      interactive hunt, this suspense-driven, multi-team event invites you and your crew to uncover eerie tales, and
-      witness strange sightings.
-    </p>
-    <p class="text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
-      This event is team-led, your day, your pace, your outfits; start anytime from 12-7pm. Your secret start location
-      will be revealed one week prior to the event. Bring a charged phone for photos with paranormal encounters, and
-      dress-up to compete against other teams for event-day prizes. A professional photographer will be on site from
-      4-6pm to capture your ghost hunting vibe.
-    </p>
-    <p class="text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
-      Your unique choices on the day change your outcome and your route through the streets. Will your team survive?
-    </p>
-    <p class="text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
-      Limited tickets available - secure your spot before the spirits (and other hunters) beat you to it!
-    </p>
+---
+import { Image } from 'astro:assets'
+import personImg from './person.png'
+---
+
+<section class="w-full bg-black text-dark-gray font-compressed relative py-4">
+  <div>
+    <div class="px-11 mt-5">
+      <h3 class="text-2xl leading-tight tracking-wide font-medium mb-6">
+        Hunt ghosts. Survive hauntings. Save your city.
+      </h3>
+      <p class="text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
+        Think you have what it takes to brave a thrilling ghost hunt in the streets of [CITY]? Part haunted tales, part
+        interactive hunt, this suspense-driven, multi-team event invites you and your crew to uncover eerie tales, and
+        witness strange sightings.
+      </p>
+      <p class="text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
+        This event is team-led, your day, your pace, your outfits; start anytime from 12-7pm. Your secret start location
+        will be revealed one week prior to the event. Bring a charged phone for photos with paranormal encounters, and
+        dress-up to compete against other teams for event-day prizes. A professional photographer will be on site from
+        4-6pm to capture your ghost hunting vibe.
+      </p>
+      <p class="text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
+        Your unique choices on the day change your outcome and your route through the streets. Will your team survive?
+      </p>
+      <p class="text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
+        Limited tickets available - secure your spot before the spirits (and other hunters) beat you to it!
+      </p>
+    </div>
+    <div class="blur-bg"></div>
   </div>
-  <div class="blur-bg"></div>
+  <div>
+    <Image src={personImg} class="z-20 rotate-y-180 translate-x-1/6 -translate-y-1/6" alt="Person with flashlight" />
+  </div>
 </section>
 
 <style>
@@ -29,15 +39,13 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     background: linear-gradient(180deg, #33afc1 0%, #b4f4ff 100%);
-    filter: blur(40px);
+    filter: blur(113px);
     border-radius: 560px;
-    opacity: 0.31;
-    width: 150%;
-    height: 100%;
-    transform: translateX(12%);
+    opacity: 0.48;
+    width: 100%;
+    height: 74%;
+    transform: translateX(17%);
     transform-origin: center;
   }
 </style>
