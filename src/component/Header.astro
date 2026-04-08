@@ -5,14 +5,9 @@ export interface Props {
   ticketHref?: string
 }
 
-const {
-  locationLabel = 'LOCATION',
-  eventDateLabel = 'DATE',
-  ticketHref = '#tickets',
-} = Astro.props
+const { locationLabel = 'LOCATION', eventDateLabel = 'DATE', ticketHref = '#tickets' } = Astro.props
 
-const ticketLinkAttrs =
-  ticketHref.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {}
+const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {}
 ---
 
 <div class="w-full min-h-[640px] bg-cover bg-center text-white font-hacked">
@@ -28,7 +23,7 @@ const ticketLinkAttrs =
       <span class="tracking-wide">{eventDateLabel}</span>
     </div>
 
-    <div class="grid grid-cols-1 grid-rows-1 absolute bottom-6 md:bottom-36">
+    <div class="grid grid-cols-1 grid-rows-1 absolute bottom-6 lg:bottom-36">
       <div class="headline-bg col-start-1 row-start-1"></div>
       <div class="col-start-1 row-start-1 z-10">
         <h1 class="text-4xl md:text-5xl lg:text-4xl leading-tight text-light-gray tracking-wide">

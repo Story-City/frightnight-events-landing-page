@@ -5,19 +5,14 @@ export interface Props {
   ticketSaleLink?: string
 }
 
-const {
-  originalTicketPrice = '$37.50',
-  currentTicketPrice = '$30',
-  ticketSaleLink = '#tickets',
-} = Astro.props
+const { originalTicketPrice = '$37.50', currentTicketPrice = '$30', ticketSaleLink = '#tickets' } = Astro.props
 
-const ticketAttrs =
-  ticketSaleLink.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+const ticketAttrs = ticketSaleLink.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 ---
 
 <div class="w-full text-white font-hacked">
-  <div class="bg-cyan/25 pr-4 py-6 cta-wrapper flex lg:max-w-[630px]">
-    <div class="cta-content flex flex-col lg:flex-row">
+  <div class="bg-cyan/25 pr-4 max-w-[500px] ml-auto py-6 cta-wrapper lg:hidden flex">
+    <div class="cta-content flex flex-col">
       <div>
         <div class="text-2xl leading-tight tracking-wide pl-16">Up to 6 players</div>
         <div class="flex items-center pl-22">
@@ -32,6 +27,23 @@ const ticketAttrs =
       </a>
     </div>
   </div>
+  <div class="pl-36 py-6 max-w-[760px] ml-16 desktop-cta-wrapper hidden lg:flex relative -translate-y-11">
+    <div class="desktop-cta-wrapper-clip bg-cyan/25 w-full h-full absolute top-0 left-0"></div>
+    <div class="desktop-cta-content flex items-center">
+      <div class="text-center">
+        <div class="text-2xl leading-tight tracking-wide">Up to 6 players</div>
+        <div class="flex items-center">
+          <span class="text-red text-xl line-through mr-4.5 tracking-wide">{originalTicketPrice}</span>
+          <span class="text-[32px] leading-tight tracking-wide">{currentTicketPrice}</span>
+        </div>
+      </div>
+
+      <a href={ticketSaleLink} class="translate-x-1/2 buy-tickets-btn block" {...ticketAttrs}>
+        <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
+        <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
+      </a>
+    </div>
+  </div>
 </div>
 
 <style>
@@ -39,10 +51,8 @@ const ticketAttrs =
     clip-path: polygon(0 0, 100% 0%, 100% 100%, 21% 100%);
   }
 
-  @media (min-width: 1024px) {
-    .cta-wrapper {
-      clip-path: polygon(0 0, 80% 0%, 100% 100%, 20% 100%);
-    }
+  .desktop-cta-wrapper-clip {
+    clip-path: polygon(0 0, 85% 0%, 100% 100%, 15% 100%);
   }
 
   .buy-tickets-btn {
@@ -52,12 +62,6 @@ const ticketAttrs =
     width: fit-content;
     text-decoration: none;
     margin-top: 12px;
-  }
-
-  @media (min-width: 768px) {
-    .buy-tickets-btn {
-      padding: 13px 100px;
-    }
   }
 
   .buy-tickets-btn__fill {
@@ -76,5 +80,20 @@ const ticketAttrs =
     line-height: 1.2;
     letter-spacing: 7%;
     text-transform: uppercase;
+  }
+
+  @media (min-width: 1024px) {
+    .buy-tickets-btn {
+      margin-top: 0px;
+      padding: 20px 80px;
+      transform: translateX(20%);
+      z-index: 2;
+    }
+    .buy-tickets-btn__fill {
+      clip-path: polygon(0 0, 80% 0%, 100% 100%, 20% 100%);
+    }
+    .buy-tickets-btn__text {
+      font-size: 28px;
+    }
   }
 </style>
