@@ -3,9 +3,10 @@ export interface Props {
   locationLabel?: string
   eventDateLabel?: string
   ticketHref?: string
+  cityName?: string
 }
 
-const { locationLabel = 'LOCATION', eventDateLabel = 'DATE', ticketHref = '#tickets' } = Astro.props
+const { locationLabel = 'LOCATION', eventDateLabel = 'DATE', ticketHref = '#tickets', cityName = 'CITY' } = Astro.props
 
 const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {}
 ---
@@ -29,7 +30,7 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
         <h1 class="text-4xl md:text-5xl lg:text-4xl leading-tight text-light-gray tracking-wide">
           Hunt ghosts. <br /> Survive hauntings. <br /> Save your city.
         </h1>
-        <h2 class="text-2xl ml-7 tracking-wide">Immersive Mobile Adventure</h2>
+        <h2 class="text-2xl ml-7 tracking-wide">Immersive {cityName} Adventure</h2>
       </div>
     </div>
   </div>
