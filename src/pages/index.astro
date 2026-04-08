@@ -1,14 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Content from '@component/Content.astro'
-import Header from '@component/Header.astro'
-import CTA from '@component/CTA.astro'
----
+import { getCollection } from 'astro:content'
 
-<Layout title="Keystatic & Astro's Content Collections">
-  <main class="bg-black min-h-screen pb-14 overflow-hidden">
-    <Header />
-    <CTA />
-    <Content />
-  </main>
-</Layout>
+const cities = await getCollection('cities')
+if (cities.length === 0) {
+  throw new Error('Add at least one city under src/content/cities for the home redirect.')
+}
+const [target] = [...cities].sort((a, b) => a.id.localeCompare(b.id))
+return Astro.redirect(`/${target.id}`)
+---

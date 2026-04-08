@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Content from '@component/Content.astro'
+import Header from '@component/Header.astro'
+import CTA from '@component/CTA.astro'
+import { getCollection } from 'astro:content'
+import { formatEventDateLabel } from '../lib/formatEventDate'
+
+export async function getStaticPaths() {
+  const cities = await getCollection('cities')
+  return cities.map(item => ({
+    params: { slug: item.id },
+    props: { entry: item.data },
+  }))
+}
+
+const { entry } = Astro.props
+
+const city = String(entry.city ?? '').trim()
+const cityTitleName = city || 'Event'
+const locationLabel = city || 'LOCATION'
+const eventDateLabel = formatEventDateLabel(entry.eventDate) || 'DATE'
+const ticketSaleLink =
+  typeof entry.ticketSaleLink === 'string' && entry.ticketSaleLink.trim() !== '' ? entry.ticketSaleLink : '#tickets'
+---
+
+<Layout title={`${cityTitleName} · Immersive Mobile Adventure`}>
+  <main class="bg-black min-h-screen pb-14 overflow-hidden">
+    <Header locationLabel={locationLabel} eventDateLabel={eventDateLabel} ticketHref={ticketSaleLink} />
+    <CTA
+      originalTicketPrice={entry.originalTicketPrice}
+      currentTicketPrice={entry.currentTicketPrice}
+      ticketSaleLink={ticketSaleLink}
+    />
+    <Content cityName={cityTitleName} />
+  </main>
+</Layout>

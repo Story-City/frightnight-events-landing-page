@@ -1,14 +1,31 @@
+---
+export interface Props {
+  locationLabel?: string
+  eventDateLabel?: string
+  ticketHref?: string
+}
+
+const {
+  locationLabel = 'LOCATION',
+  eventDateLabel = 'DATE',
+  ticketHref = '#tickets',
+} = Astro.props
+
+const ticketLinkAttrs =
+  ticketHref.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {}
+---
+
 <div class="w-full min-h-[640px] bg-cover bg-center text-white font-hacked">
   <div class="hero-content w-full min-h-[640px] relative py-6 px-5">
-    <a href="#tickets" class="buy-tickets-btn block lg:hidden">
+    <a href={ticketHref} class="buy-tickets-btn block lg:hidden" {...ticketLinkAttrs}>
       <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
       <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
     </a>
 
     <div class="text-2xl flex flex-col md:flex-row">
-      <span class="tracking-wide">LOCATION</span>
+      <span class="tracking-wide">{locationLabel}</span>
       <span class="hidden md:inline mx-3">/</span>
-      <span class="tracking-wide">DATE</span>
+      <span class="tracking-wide">{eventDateLabel}</span>
     </div>
 
     <div class="grid grid-cols-1 grid-rows-1 absolute bottom-6 md:bottom-36">

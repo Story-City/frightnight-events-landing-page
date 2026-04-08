@@ -1,15 +1,32 @@
+---
+export interface Props {
+  originalTicketPrice?: string
+  currentTicketPrice?: string
+  ticketSaleLink?: string
+}
+
+const {
+  originalTicketPrice = '$37.50',
+  currentTicketPrice = '$30',
+  ticketSaleLink = '#tickets',
+} = Astro.props
+
+const ticketAttrs =
+  ticketSaleLink.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+---
+
 <div class="w-full text-white font-hacked">
   <div class="bg-cyan/25 pr-4 py-6 cta-wrapper flex lg:max-w-[630px]">
     <div class="cta-content flex flex-col lg:flex-row">
       <div>
         <div class="text-2xl leading-tight tracking-wide pl-16">Up to 6 players</div>
         <div class="flex items-center pl-22">
-          <span class="text-red text-xl line-through mr-4.5 tracking-wide">$37.50</span>
-          <span class="text-[32px] leading-tight tracking-wide">$30</span>
+          <span class="text-red text-xl line-through mr-4.5 tracking-wide">{originalTicketPrice}</span>
+          <span class="text-[32px] leading-tight tracking-wide">{currentTicketPrice}</span>
         </div>
       </div>
 
-      <a href="#tickets" class="ml-24 buy-tickets-btn block">
+      <a href={ticketSaleLink} class="ml-24 buy-tickets-btn block" {...ticketAttrs}>
         <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
         <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
       </a>

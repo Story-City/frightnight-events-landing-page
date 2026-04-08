@@ -1,4 +1,4 @@
-import { config, fields, collection } from '@keystatic/core'
+import { config } from '@keystatic/core'
 
 export default config({
   storage: {
