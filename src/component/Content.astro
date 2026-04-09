@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets'
 import personImg from './person.png'
+import Quote from '@component/Quote.astro'
 
 export interface Props {
   cityName?: string
@@ -10,21 +11,27 @@ const { cityName } = Astro.props
 const locationTime = cityName === 'Phoenix' ? '4PM to 9PM' : '12PM to 7PM'
 ---
 
-<section class="w-full bg-black text-dark-gray font-compressed relative py-4">
+<section class="w-full max-w-6xl mx-auto bg-black text-dark-gray font-compressed relative py-4">
   <div class="w-full lg:w-1/2 z-10">
     <div class="px-11 mt-5">
       <h3 class="text-2xl leading-tight tracking-wide font-medium mb-6">
         Join 30,000+ Story City Adventurers Worldwide
       </h3>
-      <p class="text-lg lg:text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
+      <p class="text-lg lg:text-2xl leading-tight tracking-wide font-normal font-abeezee mb-3">
         Brave a spooky ghost hunt through the streets of {cityName} in this interactive, suspense-filled multi-team event.
         Start anytime from {locationTime}, follow eerie clues, and make choices that change your route and ending. Dress
         up, snap paranormal photos, and compete for prizes. Limited tickets available before they vanish into the night.
       </p>
+      <p class="text-lg lg:text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
+        <span class="font-medium">Story City Life Promise:</span> Life happens. If the weather or your plans change, your
+        Frightnight pass is 100% transferable to any friend, any future Story City date, or any other city experience we offer.
+      </p>
     </div>
     <div class="blur-bg"></div>
   </div>
-  <div class="min-h-[500px] lg:min-h-[500px]"></div>
+  <div class="min-h-[500px] flex items-start">
+    <Quote />
+  </div>
   <Image src={personImg} class="rotate-y-180 pointer-events-none person-img" alt="Person with flashlight" />
 </section>
 
@@ -38,7 +45,7 @@ const locationTime = cityName === 'Phoenix' ? '4PM to 9PM' : '12PM to 7PM'
     border-radius: 560px;
     opacity: 0.48;
     width: 100%;
-    height: 74%;
+    height: 34%;
     transform: translateX(17%);
     transform-origin: center;
     pointer-events: none;
@@ -54,6 +61,7 @@ const locationTime = cityName === 'Phoenix' ? '4PM to 9PM' : '12PM to 7PM'
   @media (min-width: 1024px) {
     .blur-bg {
       transform: translateX(48%);
+      height: 50%;
     }
     .person-img {
       width: auto;

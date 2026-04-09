@@ -1,0 +1,52 @@
+---
+import Rating from '@component/Rating.astro'
+const quote = 'Creepy, hilarious, and genuinely surprising. Loved it!'
+const author = 'Jasmine Y.'
+---
+
+<div class="w-full mt-12">
+  <div class="mobile-quote relative py-10 block lg:hidden">
+    <div class="mobile-quote-bg bg-cyan/20 max-w-[600px]"></div>
+    <div class="text-xl max-w-[400px] px-11 relative z-10">
+      <p class="font-hacked tracking-wide text-white">"{quote}"</p>
+      <div class="flex items-center gap-4 mt-4">
+        <span class="font-compressed text-dark-gray tracking-wide">-{author}.</span>
+        <Rating rating={5} />
+      </div>
+    </div>
+  </div>
+  <div class="desktop-quote hidden py-10 lg:block relative">
+    <div class="flex items-center">
+      <div class="desktop-quote-bg bg-cyan/20 max-w-4/5"></div>
+      <div class="text-xl max-w-[600px] px-11 mx-auto relative z-10">
+        <p class="font-hacked tracking-wide text-white lg:text-2xl leading-tight">"{quote}"</p>
+        <div class="flex items-center gap-4 mt-4">
+          <span class="font-compressed text-dark-gray tracking-wide lg:text-2xl leading-tight">-{author}</span>
+          <Rating rating={5} />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .mobile-quote-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      clip-path: polygon(15% 0, 100% 0%, 100% 100%, 0% 100%);
+    }
+    .desktop-quote-bg {
+      position: absolute;
+      top: 0;
+      right: 50%;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      clip-path: polygon(15% 0, 100% 0%, 85% 100%, 0% 100%);
+      transform: translateX(50%);
+    }
+  </style>
+</div>
