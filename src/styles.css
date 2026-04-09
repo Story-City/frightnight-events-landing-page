@@ -3,10 +3,12 @@
 
 @font-face {
     font-family: 'Helvetica Compressed';
+    font-display: swap;
     src: url('/helvetica.otf');
 }
 @font-face {
     font-family: 'HACKED';
+    font-display: swap;
     src: url('/hacked.ttf');
 }
 
