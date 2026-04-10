@@ -10,8 +10,8 @@ const { locationLabel = '', eventDateLabel = '', ticketHref = '' } = Astro.props
 const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {}
 ---
 
-<div class="w-full min-h-[640px] bg-cover bg-center text-white font-hacked">
-  <div class="hero-content flex flex-col w-full min-h-[640px] relative py-6 px-5">
+<div class="w-full min-h-[780px] text-white font-hacked">
+  <div class="hero-content flex flex-col w-full min-h-[780px] relative py-6 px-5">
     <div class="max-w-6xl w-full mx-auto grow flex flex-col">
       <div class="flex justify-center lg:justify-end">
         {
