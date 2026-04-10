@@ -11,7 +11,7 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
 ---
 
 <div class="hero-outer w-full min-h-[780px] lg:min-h-[850px] text-white font-hacked bg-black relative overflow-hidden">
-  <div class="hero-content flex flex-col w-full min-h-[780px] lg:min-h-[850px] relative pb-6 px-5 max-w-7xl mx-auto">
+  <div class="hero-content flex flex-col w-full min-h-[780px] lg:min-h-[850px] relative pb-6 px-5 max-w-[1400px] mx-auto">
     <div class="max-w-6xl w-full mx-auto grow flex flex-col relative z-10">
       <div class="flex justify-center lg:justify-end">
         <a href="#" data-faq-trigger class="text-white tracking-wide text-base self-center mr-6">MORE INFO</a>
@@ -48,27 +48,6 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
 </div>
 
 <style>
-  .hero-outer::before,
-  .hero-outer::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 10%;
-    z-index: 5;
-    pointer-events: none;
-  }
-
-  .hero-outer::before {
-    left: 0;
-    background: linear-gradient(to right, var(--color-black), transparent);
-  }
-
-  .hero-outer::after {
-    right: 0;
-    background: linear-gradient(to left, var(--color-black), transparent);
-  }
-
   .hero-content {
     background-blend-mode: darken;
     background:
@@ -86,6 +65,7 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
     background-repeat: no-repeat;
     background-position-y: 10px;
     background-position-x: 59%;
+    mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
   }
 
   .hero-content::before {
