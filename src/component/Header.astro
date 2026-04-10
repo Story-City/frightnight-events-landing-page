@@ -3,42 +3,49 @@ export interface Props {
   locationLabel?: string
   eventDateLabel?: string
   ticketHref?: string
-  cityName?: string
 }
 
-const { locationLabel = '', eventDateLabel = '', ticketHref = '', cityName = '' } = Astro.props
+const { locationLabel = '', eventDateLabel = '', ticketHref = '' } = Astro.props
 
 const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {}
 ---
 
 <div class="w-full min-h-[640px] bg-cover bg-center text-white font-hacked">
-  <div class="hero-content w-full min-h-[640px] relative py-6 px-5">
-    {
-      ticketHref && (
-        <a href={ticketHref} class="buy-tickets-btn block lg:hidden" {...ticketLinkAttrs}>
-          <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true" />
-          <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
+  <div class="hero-content flex flex-col w-full min-h-[640px] relative py-6 px-5">
+    <div class="max-w-6xl w-full mx-auto grow flex flex-col">
+      <div class="flex justify-center lg:justify-end">
+        {
+          ticketHref && (
+            <a href={ticketHref} class="buy-tickets-btn block" {...ticketLinkAttrs}>
+              <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true" />
+              <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
+            </a>
+          )
+        }
+        <a href="/FAQ" class="buy-tickets-btn block">
+          <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
+          <span class="buy-tickets-btn__text tracking-wide">FAQs</span>
         </a>
-      )
-    }
+      </div>
 
-    <div class="max-w-6xl mx-auto">
-      {
-        locationLabel && eventDateLabel && (
-          <div class="text-2xl flex flex-col md:flex-row">
-            <span class="tracking-wide">{locationLabel}</span>
-            <span class="hidden md:inline mx-3">/</span>
-            <span class="tracking-wide">{eventDateLabel}</span>
-          </div>
-        )
-      }
-      <div class="grid grid-cols-1 grid-rows-1 absolute bottom-6 lg:bottom-36">
-        <div class="headline-bg col-start-1 row-start-1"></div>
-        <div class="col-start-1 row-start-1 z-10">
-          <h1 class="text-4xl md:text-5xl lg:text-4xl leading-tight text-light-gray tracking-wide">
-            Hunt ghosts. <br /> Survive hauntings. <br /> Save your city.
-          </h1>
-          {cityName && <h2 class="text-2xl ml-7 tracking-wide">Immersive {cityName} Event</h2>}
+      <div class="w-full h-full mt-auto lg:mb-18">
+        <h1 class="text-4xl sm:text-6xl leading-tight text-white tracking-wide text-center lg:text-left">
+          FRIGHTNIGHT
+        </h1>
+        <div class="flex flex-col lg:flex-row items-center justify-center lg:justify-between">
+          {
+            locationLabel && eventDateLabel && (
+              <div class="text-2xl font-hacked lg:ml-6 leading-tight flex items-center">
+                <span class="tracking-wide">{locationLabel}</span>
+                <span class="mx-3">/</span>
+                <span class="tracking-wide">{eventDateLabel}</span>
+              </div>
+            )
+          }
+
+          <h2 class="text-2xl tracking-wide font-compressed text-center lg:text-left text-pretty">
+            Hunt ghosts. Survive hauntings. Save your city.
+          </h2>
         </div>
       </div>
     </div>
@@ -60,6 +67,9 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
       ),
       linear-gradient(140.69deg, rgba(0, 0, 0, 0.58) 9.83%, rgba(0, 0, 0, 0) 30.13%),
       url('/bg.webp') no-repeat center center / cover;
+    background-size: cover;
+    background-position-y: 50px;
+    background-position-x: 100%;
   }
 
   .headline-bg {
