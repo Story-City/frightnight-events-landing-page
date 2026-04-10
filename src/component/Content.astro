@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets'
-import personImg from './person.png'
+import personImg from './person.webp'
 import Quote from '@component/Quote.astro'
 
 export interface Props {
@@ -50,11 +50,10 @@ const locationTime = cityName === 'Phoenix' ? '4PM to 9PM' : '12PM to 7PM'
 
   .person-img {
     height: auto;
-    width: 500px;
+    width: 450px;
     position: absolute;
     right: 0;
     bottom: 0;
-    transform: rotateY(180deg);
     mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
   }
   @media (min-width: 1024px) {
@@ -64,8 +63,8 @@ const locationTime = cityName === 'Phoenix' ? '4PM to 9PM' : '12PM to 7PM'
     }
     .person-img {
       width: auto;
-      height: 1400px;
-      transform: rotateY(180deg) translateX(-20%);
+      height: 800px;
+      transform: translateX(-20%);
     }
   }
 </style>
