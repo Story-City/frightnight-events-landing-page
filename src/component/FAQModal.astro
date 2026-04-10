@@ -10,50 +10,53 @@ const { locationTime } = Astro.props
   <div id="faq-backdrop" class="absolute inset-0 bg-black/80"></div>
   <div class="absolute inset-0 overflow-y-auto">
     <div class="max-w-4xl mx-auto py-12 px-6 relative">
-      <button id="faq-close" class="sticky top-4 float-right text-light-gray text-3xl font-hacked cursor-pointer bg-transparent border-none z-10">
+      <button
+        id="faq-close"
+        class="sticky top-4 float-right text-light-gray text-3xl font-hacked cursor-pointer bg-transparent border-none z-10"
+      >
         ✕
       </button>
-      <h1 class="text-4xl leading-tight text-light-gray tracking-wide font-hacked mb-4">
-        More Info
-      </h1>
+      <h1 class="text-4xl leading-tight text-light-gray tracking-wide font-hacked mb-4">More Info</h1>
       <div class="bg-black/85 rounded-lg p-5 mb-4">
-        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
-          What you need to know
-        </h2>
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">What you need to know</h2>
         <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
-          <li>📍 Start at a secret downtown location</li>
-          <li>📱 Follow the clues and ghost signals via your phone</li>
           <li>👻 Engage phantoms and uncover haunted stories at real locations</li>
+          <li>📱 Bring a charged phone for photos with paranormal encounters.</li>
           <li>🔀 Make choices on the journey that change your ending</li>
           <li>🏆 Compete against other teams in your city</li>
           <li>This is a limited ticket paranormal experience suitable for teams of up to 6 players</li>
           <li>Your secret starting location will be revealed in a pre-game briefing prior to your event</li>
           <li>Start any time between {locationTime} on the day of the event!</li>
+          <li>A professional photographer will be on site from 4-6pm</li>
           <li>The experience unfolds via our custom built app</li>
-          <li>Dress to impress, whether it's gothic glam or paranormal investigator chic. The best dressed crews win prizes!</li>
+          <li>
+            Dress to impress, whether it's gothic glam or paranormal investigator chic. The best dressed crews win
+            prizes!
+          </li>
           <li>Feel free to bring your furry friends, dogs are extremely welcome to take part</li>
         </ul>
       </div>
       <div class="bg-black/85 rounded-lg p-5 mb-4">
-        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
-          Team Info
-        </h2>
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Team Info</h2>
         <p class="text-lg text-light-gray tracking-wide font-abeezee mb-3">
-          A team ticket covers up to 6 players (as low as $5/person), for a 45-75 min haunted mission, making this one of
-          the most affordable supernatural adventures out there.
+          A team ticket covers up to 6 players (as low as $5/person), for a 45-75 min haunted mission, making this one
+          of the most affordable supernatural adventures out there.
         </p>
         <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
-          <li>📲 You will get a shareable team link in the pre-event email so every team member can play from their own device</li>
+          <li>
+            📲 You will get a shareable team link in the pre-event email so every team member can play from their own
+            device
+          </li>
           <li>⏰ Go at your own pace...</li>
-          <li>🔁 Replay post-event anytime to explore new choices, new hauntings, and try your hand at a few alternate endings</li>
+          <li>
+            🔁 Replay post-event anytime to explore new choices, new hauntings, and try your hand at a few alternate
+            endings
+          </li>
           <li>📍 We recommend this to teams aged 13+ due to length of experience</li>
-          <li>Looking for events perfect for ages 8-12? Sign up for our newsletter at the bottom of the page!</li>
         </ul>
       </div>
       <div class="bg-black/85 rounded-lg p-5 mb-4">
-        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
-          Prizes
-        </h2>
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Prizes</h2>
         <p class="text-lg text-light-gray tracking-wide font-abeezee mb-3">
           We LOVE when teams dress up and bring their ghost-hunting alter-egos to life. Share photos using
           #StoryCityFrightnight to enter:
@@ -67,29 +70,41 @@ const { locationTime } = Astro.props
           <li>🐾 Best Themed Pet</li>
         </ul>
         <p class="text-lg text-light-gray tracking-wide font-abeezee mt-3">
-          Winners receive cash prizes (up to $500 depending on the category), exclusive enamel pins, creator-signed art, and
-          more, plus a feature on our socials.
-          You'll be battling events in other cities for the top spots so bring your A-game and city pride!
+          Winners receive cash prizes (up to $500 depending on the category), exclusive enamel pins, creator-signed art,
+          and more, plus a feature on our socials. You'll be battling events in other cities for the top spots so bring
+          your A-game and city pride!
         </p>
       </div>
       <div class="bg-black/85 rounded-lg p-5 mb-4">
-        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
-          About Story City
-        </h2>
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">About Story City</h2>
         <div class="text-lg text-light-gray tracking-wide font-abeezee space-y-3">
-          <p>Story City is a small, independent, 10-person creative-tech studio on a mission: To empower people to share and step into the world's stories.</p>
-          <p>Our no-code platform has helped 200+ creators turn real streets into playable storyworlds - stories you can step inside, explore, and change through your choices.</p>
-          <p>We have partnered with festivals, museums, cities (eg. City of Atlanta, Calgary, Melbourne UNESCO City), non-profits (eg. Human Rights Foundation), and creators around the world.</p>
-          <p>By purchasing a ticket, you help bring more independently created stories to communities like yours. Thank you for co-creating with us to make the world more fun and connected.</p>
-          <p>Big shout out to the creators of this experience: Domini Gee (Writer), Emily Craven (Writer/Producer), Matt Mihilewicz (Editor/VO Director), Victoria Ilnystka (Artist), Lauren Hughes (Actor), Toast + Jam/Jeremy Volts/Aaron Jensen (Music & sound).</p>
+          <p>
+            Story City is a small, independent, 10-person creative-tech studio on a mission: To empower people to share
+            and step into the world's stories.
+          </p>
+          <p>
+            Our no-code platform has helped 200+ creators turn real streets into playable storyworlds - stories you can
+            step inside, explore, and change through your choices.
+          </p>
+          <p>
+            We have partnered with festivals, museums, cities (eg. City of Atlanta, Calgary, Melbourne UNESCO City),
+            non-profits (eg. Human Rights Foundation), and creators around the world.
+          </p>
+          <p>
+            By purchasing a ticket, you help bring more independently created stories to communities like yours. Thank
+            you for co-creating with us to make the world more fun and connected.
+          </p>
+          <p>
+            Big shout out to the creators of this experience: Domini Gee (Writer), Emily Craven (Writer/Producer), Matt
+            Mihilewicz (Editor/VO Director), Victoria Ilnystka (Artist), Lauren Hughes (Actor), Toast + Jam/Jeremy
+            Volts/Aaron Jensen (Music & sound).
+          </p>
         </div>
       </div>
       <div class="bg-black/85 rounded-lg p-5 mb-4">
-        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
-          Ticket Info
-        </h2>
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Ticket Info</h2>
         <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
-          <li>🎟 Team Ticket (up to 6 players): $30 → $24 with newsletter signup</li>
+          <li>🎟 Team Ticket (up to 6 players): 20% off if you purchase today, $37.50 → $30</li>
           <li>⏰ Start anytime between {locationTime}</li>
           <li>📍 Playtime: 45-75 minutes</li>
           <li>👟 Walking: ~1-1.5 miles</li>
@@ -100,16 +115,17 @@ const { locationTime } = Astro.props
         </ul>
       </div>
       <div class="bg-black/85 rounded-lg p-5 mb-4">
-        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
-          Safety
-        </h2>
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Safety</h2>
         <p class="text-lg text-light-gray tracking-wide font-abeezee mb-3">Our adventures are:</p>
         <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
           <li>👪🏼 Team-led - your day, your pace, your outfits</li>
           <li>🌲 Outdoors and naturally socially distanced (if you need!)</li>
           <li>⏰ Flexible - pause anytime, continue at your pace</li>
           <li>🦽 Designed to be stroller and wheelchair friendly where possible</li>
-          <li>📍 If your pre-event route email shows the terrain will not meet your needs, we will happily refund you. Your location is only tracked while using the app to unlock experiences. Your privacy matters to us.</li>
+          <li>
+            📍 If your pre-event route email shows the terrain will not meet your needs, we will happily refund you.
+            Your location is only tracked while using the app to unlock experiences. Your privacy matters to us.
+          </li>
         </ul>
       </div>
     </div>
@@ -122,7 +138,7 @@ const { locationTime } = Astro.props
   const closeBtn = document.getElementById('faq-close')!
 
   document.querySelectorAll('[data-faq-trigger]').forEach(el => {
-    el.addEventListener('click', (e) => {
+    el.addEventListener('click', e => {
       e.preventDefault()
       modal.classList.remove('hidden')
       document.body.style.overflow = 'hidden'
