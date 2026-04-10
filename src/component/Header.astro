@@ -10,9 +10,9 @@ const { locationLabel = '', eventDateLabel = '', ticketHref = '' } = Astro.props
 const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {}
 ---
 
-<div class="w-full min-h-[700px] text-white font-hacked">
-  <div class="hero-content flex flex-col w-full min-h-[700px] relative py-6 px-5">
-    <div class="max-w-6xl w-full mx-auto grow flex flex-col">
+<div class="hero-outer w-full min-h-[780px] lg:min-h-[850px] text-white font-hacked bg-black relative overflow-hidden">
+  <div class="hero-content flex flex-col w-full min-h-[780px] lg:min-h-[850px] relative pb-6 px-5 max-w-7xl mx-auto">
+    <div class="max-w-6xl w-full mx-auto grow flex flex-col relative z-10">
       <div class="flex justify-center lg:justify-end">
         <a href="#" data-faq-trigger class="text-white tracking-wide text-base self-center mr-6">MORE INFO</a>
         {
@@ -48,6 +48,27 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
 </div>
 
 <style>
+  .hero-outer::before,
+  .hero-outer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10%;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .hero-outer::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-black), transparent);
+  }
+
+  .hero-outer::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-black), transparent);
+  }
+
   .hero-content {
     background-blend-mode: darken;
     background:
@@ -63,8 +84,31 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
       linear-gradient(140.69deg, rgba(0, 0, 0, 0.58) 9.83%, rgba(0, 0, 0, 0) 30.13%), url('/bg.webp');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position-y: 48px;
+    background-position-y: 10px;
     background-position-x: 59%;
+  }
+
+  .hero-content::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    height: 20%;
+    background: linear-gradient(to top, transparent, var(--color-black));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-content::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent, var(--color-black));
+    pointer-events: none;
   }
 
   .headline-bg {
