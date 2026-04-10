@@ -14,6 +14,7 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
   <div class="hero-content flex flex-col w-full min-h-[700px] relative py-6 px-5">
     <div class="max-w-6xl w-full mx-auto grow flex flex-col">
       <div class="flex justify-center lg:justify-end">
+        <a href="#" data-faq-trigger class="text-white tracking-wide text-base self-center mr-6">MORE INFO</a>
         {
           ticketHref && (
             <a href={ticketHref} class="buy-tickets-btn block" {...ticketLinkAttrs}>
@@ -22,10 +23,6 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
             </a>
           )
         }
-        <a href="/FAQ" class="buy-tickets-btn block">
-          <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
-          <span class="buy-tickets-btn__text tracking-wide">FAQs</span>
-        </a>
       </div>
 
       <div class="w-full h-full mt-auto lg:mb-18">

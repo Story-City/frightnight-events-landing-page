@@ -9,6 +9,7 @@ const cities = defineCollection({
     originalTicketPrice: z.string(),
     currentTicketPrice: z.string(),
     ticketSaleLink: z.string(),
+    locationTime: z.string().default('12PM to 7PM'),
   }),
 })
 

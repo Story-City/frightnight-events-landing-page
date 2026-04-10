@@ -1,0 +1,149 @@
+---
+export interface Props {
+  locationTime: string
+}
+
+const { locationTime } = Astro.props
+---
+
+<div id="faq-modal" class="hidden fixed inset-0 z-50">
+  <div id="faq-backdrop" class="absolute inset-0 bg-black/80"></div>
+  <div class="absolute inset-0 overflow-y-auto">
+    <div class="max-w-4xl mx-auto py-12 px-6 relative">
+      <button id="faq-close" class="sticky top-4 float-right text-light-gray text-3xl font-hacked cursor-pointer bg-transparent border-none z-10">
+        ✕
+      </button>
+      <h1 class="text-4xl leading-tight text-light-gray tracking-wide font-hacked mb-4">
+        More Info
+      </h1>
+      <div class="bg-black/85 rounded-lg p-5 mb-4">
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
+          What you need to know
+        </h2>
+        <p class="text-lg leading-tight text-light-gray tracking-wide font-abeezee">
+          📍 Start at a secret downtown location. <br />
+          📱 Follow the clues and ghost signals via your phone <br />
+          👻 Engage phantoms and uncover haunted stories at real locations <br />
+          🔀 Make choices on the journey that change your ending <br />
+          🏆 Compete against other teams in your city <br />
+          This is a limited ticket paranormal experience suitable for teams of up to 6 players. <br />
+          Your secret starting location will be revealed in a pre-game briefing prior to your event. <br />
+          Start any time between {locationTime} on the day of the event! <br />
+          The experience unfolds via our custom built app. <br />
+          Dress to impress, whether it's gothic glam or paranormal investigator chic. The best dressed crews win prizes! <br />
+          Feel free to bring your furry friends, dogs are extremely welcome to take part.
+        </p>
+      </div>
+      <div class="bg-black/85 rounded-lg p-5 mb-4">
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
+          Team Info
+        </h2>
+        <p class="text-lg leading-tight text-light-gray tracking-wide font-abeezee">
+          A team ticket covers up to 6 players (as low as $5/person), for a 45-75 min haunted mission, making this one of
+          the most affordable supernatural adventures out there.
+          <br />
+          📲 You will get a shareable team link in the pre-event email so every team member can play from their own device.
+          <br />
+          ⏰ Go at your own pace... <br />
+          🔁 Replay post-event anytime to explore new choices, new hauntings, and try your hand at a few alternate endings.
+          <br />
+          📍We recommend this to teams aged 13+ due to length of experience. <br />
+          Looking for events perfect for ages 8-12? Sign up for our newsletter at the bottom of the page!
+        </p>
+      </div>
+      <div class="bg-black/85 rounded-lg p-5 mb-4">
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
+          Prizes
+        </h2>
+        <p class="text-lg leading-tight text-light-gray tracking-wide font-abeezee">
+          We LOVE when teams dress up and bring their ghost-hunting alter-egos to life. Share photos using
+          #StoryCityFrightnight to enter:
+          <br />
+          🏆 Best Dressed Team <br />
+          ✨ Best Dressed Individual <br />
+          ⚡ Best Day of Ghost Story TikTok <br />
+          📝 Best Team Name <br />
+          📸 Best Photo Moment <br />
+          🐾 Best Themed Pet <br />
+          Winners receive cash prizes (up to $500 depending on the category), exclusive enamel pins, creator-signed art, and
+          more, plus a feature on our socials. <br />
+          You'll be battling events in other cities for the top spots so bring your A-game and city pride!
+        </p>
+      </div>
+      <div class="bg-black/85 rounded-lg p-5 mb-4">
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
+          About Story City
+        </h2>
+        <p class="text-lg leading-tight text-light-gray tracking-wide font-abeezee">
+          Story City is a small, independent, 10-person creative-tech studio on a mission:
+          <br />
+          To empower people to share and step into the world's stories.
+          <br />
+          Our no-code platform has helped 200+ creators turn real streets into playable storyworlds - stories you can step inside,
+          explore, and change through your choices.
+          <br />
+          We have partnered with festivals, museums, cities (eg. City of Atlanta, Calgary, Melbourne UNESCO City), non-profits
+          (eg. Human Rights Foundation), and creators around the world. <br />
+          By purchasing a ticket, you help bring more independently created stories to communities like yours. Thank you for
+          co-creating with us to make the world more fun and connected.
+          <br />
+          Big shout out to the creators of this experience: Domini Gee (Writer), Emily Craven (Writer/Producer), Matt Mihilewicz
+          (Editor/VO Director), Victoria Ilnystka (Artist), Lauren Hughes (Actor), Toast + Jam/Jeremy Volts/Aaron Jensen (Music
+          & sound).
+        </p>
+      </div>
+      <div class="bg-black/85 rounded-lg p-5 mb-4">
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
+          Ticket Info
+        </h2>
+        <p class="text-lg leading-tight text-light-gray tracking-wide font-abeezee">
+          🎟 Team Ticket (up to 6 players): $30 → $24 with newsletter signup <br />
+          ⏰ Start anytime between {locationTime} <br />
+          📍 Playtime: 45-75 minutes <br />
+          👟 Walking: ~1-1.5 miles <br />
+          🎧 Headphones or Bluetooth speaker optional (but recommended for spooky immersion!) <br />
+          📲 App download link arrives in your pre-game email <br />
+          🔁 Unlimited replays post-event to unlock every haunting and every ending. <br />
+          ** All tickets are digitally delivered.*
+        </p>
+      </div>
+      <div class="bg-black/85 rounded-lg p-5 mb-4">
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
+          Safety
+        </h2>
+        <p class="text-lg leading-tight text-light-gray tracking-wide font-abeezee">
+          Our adventures are:
+          <br />
+          👪🏼 Team-led - your day, your pace, your outfits. <br />
+          🌲Outdoors and naturally socially distanced (if you need!) <br />
+          ⏰ Flexible - pause anytime, continue at your pace. <br />
+          🦽 Designed to be stroller and wheelchair friendly where possible. <br />
+          📍 If your pre-event route email shows the terrain will not meet your needs, we will happily refund you. Your location
+          is only tracked while using the app to unlock experiences. Your privacy matters to us.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('faq-modal')!
+  const backdrop = document.getElementById('faq-backdrop')!
+  const closeBtn = document.getElementById('faq-close')!
+
+  document.querySelectorAll('[data-faq-trigger]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault()
+      modal.classList.remove('hidden')
+      document.body.style.overflow = 'hidden'
+    })
+  })
+
+  function close() {
+    modal.classList.add('hidden')
+    document.body.style.overflow = ''
+  }
+
+  closeBtn.addEventListener('click', close)
+  backdrop.addEventListener('click', close)
+</script>

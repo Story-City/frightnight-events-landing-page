@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import Content from '@component/Content.astro'
 import Header from '@component/Header.astro'
 import CTA from '@component/CTA.astro'
+import FAQModal from '@component/FAQModal.astro'
 import { getCollection } from 'astro:content'
 import { formatEventDateLabel } from '../lib/formatEventDate'
 
@@ -23,7 +24,7 @@ const eventDateLabel = formatEventDateLabel(entry.eventDate) || 'DATE'
 const ticketSaleLink =
   typeof entry.ticketSaleLink === 'string' && entry.ticketSaleLink.trim() !== '' ? entry.ticketSaleLink : '#tickets'
 
-const locationTime = cityTitleName === 'Phoenix' ? '4PM to 9PM' : '12PM to 7PM'
+const locationTime = entry.locationTime
 const description = `Brave a spooky ghost hunt through the streets of ${cityTitleName} in this interactive, suspense-filled multi-team event.
         Start anytime from ${locationTime}, follow eerie clues, and make choices that change your route and ending. Dress
         up, snap paranormal photos, and compete for prizes. Limited tickets available before they vanish into the night.`
@@ -38,8 +39,9 @@ const description = `Brave a spooky ghost hunt through the streets of ${cityTitl
       ticketSaleLink={ticketSaleLink}
     />
     <Content cityName={cityTitleName} />
-    <div class="text-center max-w-4xl mx-auto text-white mt-6 py-8">
-      <p class="text-lg lg:text-2xl leading-tight tracking-wide font-normal font-abeezee mb-4">
+    <FAQModal locationTime={locationTime} />
+    <div class="text-justify lg:text-center max-w-4xl mx-auto text-white mt-6 py-12 px-6">
+      <p class="text-lg lg:text-2xl leading-tight tracking-wide font-normal font-abeezee">
         <span class="font-medium">Story City Life Promise:</span> Life happens. If the weather or your plans change, your
         Frightnight pass is 100% transferable to any friend, any future Story City date, or any other city experience we offer.
       </p>
