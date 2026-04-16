@@ -9,6 +9,7 @@ export interface Props {
 
 const { cityName } = Astro.props
 const locationTime = cityName === 'Phoenix' ? '4PM to 9PM' : '12PM to 7PM'
+const discount = cityName === 'Houston' ? '33%' : '20%'
 ---
 
 <section class="w-full max-w-6xl mx-auto bg-black text-dark-gray font-compressed relative py-4">
@@ -27,7 +28,7 @@ const locationTime = cityName === 'Phoenix' ? '4PM to 9PM' : '12PM to 7PM'
         Dress up, snap paranormal photos, and compete for prizes.
       </p>
       <p class="text-lg lg:text-2xl leading-tight tracking-wide font-normal font-abeezee mb-3">
-        Limited tickets available - get 20% off if you buy today, or have it vanish into the night!
+        Limited tickets available - get {discount} off if you buy today, or have it vanish into the night!
       </p>
       <a href="#" data-faq-trigger class="text-neon underline text-lg lg:text-2xl font-abeezee tracking-wide">
         More Info

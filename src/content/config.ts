@@ -4,7 +4,7 @@ import { glob } from 'astro/loaders'
 const cities = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/cities' }),
   schema: z.object({
-    city: z.string(),
+    cityName: z.string(),
     eventDate: z.coerce.date(),
     originalTicketPrice: z.string(),
     currentTicketPrice: z.string(),
