@@ -10,20 +10,24 @@ const { locationLabel = '', eventDateLabel = '', ticketHref = '' } = Astro.props
 const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {}
 ---
 
+<nav id="top-nav" class="fixed top-0 left-0 right-0 z-40 transition-colors duration-300 font-hacked">
+  <div class="max-w-6xl w-full mx-auto flex justify-center lg:justify-end px-5 py-2">
+    <a href="#" data-faq-trigger class="text-white tracking-wide text-base self-center mr-6 font-hacked">MORE INFO</a>
+    {
+      ticketHref && (
+        <a href={ticketHref} class="buy-tickets-btn block" {...ticketLinkAttrs}>
+          <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true" />
+          <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
+        </a>
+      )
+    }
+  </div>
+</nav>
+
 <div class="hero-outer w-full min-h-[780px] lg:min-h-[850px] text-white font-hacked bg-black relative overflow-hidden">
   <div class="hero-content flex flex-col w-full min-h-[780px] lg:min-h-[850px] relative pb-6 px-5 max-w-[1400px] mx-auto">
     <div class="max-w-6xl w-full mx-auto grow flex flex-col relative z-10">
-      <div class="flex justify-center lg:justify-end">
-        <a href="#" data-faq-trigger class="text-white tracking-wide text-base self-center mr-6">MORE INFO</a>
-        {
-          ticketHref && (
-            <a href={ticketHref} class="buy-tickets-btn block" {...ticketLinkAttrs}>
-              <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true" />
-              <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
-            </a>
-          )
-        }
-      </div>
+      <div class="h-16"></div>
 
       <div class="w-full h-full mt-auto lg:mb-18">
         <h1 class="text-6xl leading-tight text-white tracking-wide text-center lg:text-left">FRIGHTNIGHT</h1>
@@ -106,8 +110,15 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
     position: relative;
     width: fit-content;
     text-decoration: none;
-    margin-bottom: 36px;
-    margin-top: 24px;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .buy-tickets-btn {
+      margin-bottom: 24px;
+      margin-top: 16px;
+    }
   }
 
   .buy-tickets-btn__fill {
@@ -128,3 +139,16 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
     width: max-content;
   }
 </style>
+
+<script>
+  const nav = document.getElementById('top-nav')
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.style.backgroundColor = 'rgba(1, 9, 18, 0.85)'
+      } else {
+        nav.style.backgroundColor = 'transparent'
+      }
+    }, { passive: true })
+  }
+</script>
