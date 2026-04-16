@@ -4,6 +4,8 @@ import Content from '@component/Content.astro'
 import Header from '@component/Header.astro'
 import CTA from '@component/CTA.astro'
 import FAQModal from '@component/FAQModal.astro'
+import Promise from '@component/Promise.astro'
+import Gallery from '@component/Gallery.astro'
 import { getCollection } from 'astro:content'
 import { formatEventDateLabel } from '../lib/formatEventDate'
 
@@ -40,12 +42,10 @@ const description = `Brave a spooky ghost hunt through the streets of ${cityTitl
     />
     <Content cityName={cityTitleName} />
     <FAQModal locationTime={locationTime} />
-    <div class="text-justify lg:text-center max-w-4xl mx-auto text-white mt-6 py-12 px-6">
-      <h2 class="text-3xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Story City Life Promise</h2>
-      <p class="text-lg lg:text-2xl leading-tight tracking-wide font-normal font-abeezee">
-        Life happens. If the weather or your plans change, your Frightnight pass is 100% transferable to any friend, any
-        future Story City date, or any other city experience we offer.
-      </p>
-    </div>
+    <Gallery
+      title="WHAT TO EXPECT"
+      description="A glimpse of the night: street hunts, team play, photo-worthy moments, and surprises waiting around every corner."
+    />
+    <Promise />
   </main>
 </Layout>
