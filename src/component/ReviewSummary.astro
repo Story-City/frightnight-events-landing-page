@@ -1,0 +1,17 @@
+---
+import Rating from './Rating.astro'
+
+interface Props {
+  comment: string
+  rating: number
+  author: string
+}
+
+const { comment, rating, author } = Astro.props
+---
+
+<div class="border border-zinc-800 rounded-lg p-6">
+  <div class="mb-3"><Rating rating={rating} width={28} height={28} /></div>
+  <p class="text-zinc-300 text-2xl leading-relaxed mb-4 font-hacked">"{comment}"</p>
+  <p class="text-white font-bold text-xl font-abeezee">— {author}</p>
+</div>

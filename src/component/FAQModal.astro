@@ -1,9 +1,11 @@
 ---
 export interface Props {
   locationTime: string
+  originalTicketPrice: string
+  currentTicketPrice: string
 }
 
-const { locationTime } = Astro.props
+const { locationTime, originalTicketPrice, currentTicketPrice } = Astro.props
 ---
 
 <div id="faq-modal" class="hidden fixed inset-0 z-50">
@@ -20,20 +22,30 @@ const { locationTime } = Astro.props
       <div class="bg-black/85 rounded-lg p-5 mb-4">
         <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">What you need to know</h2>
         <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
-          <li>👻 Engage phantoms and uncover haunted stories at real locations</li>
-          <li>📱 Bring a charged phone for photos with paranormal encounters.</li>
-          <li>🔀 Make choices on the journey that change your ending</li>
-          <li>🏆 Compete against other teams in your city</li>
-          <li>This is a limited ticket paranormal experience suitable for teams of up to 6 players</li>
-          <li>Your secret starting location will be revealed in a pre-game briefing prior to your event</li>
-          <li>Start any time between {locationTime} on the day of the event!</li>
-          <li>A professional photographer will be on site from 4-6pm</li>
-          <li>The experience unfolds via our custom built app</li>
+          <li>👻 Hunt ghosts at real locations - uncover eerie stories and encounter phantoms across the city</li>
+          <li>📱 Play on your phone - follow clues, track signals, and capture paranormal moments</li>
+          <li>🔀 Your choices matter - every decision changes your route and your ending</li>
+          <li>🏆 Compete as a team - climb the leaderboard against the other Ghost Hunters</li>
+        </ul>
+      </div>
+      <div class="bg-black/85 rounded-lg p-5 mb-4">
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Event Details</h2>
+        <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
+          <li>🎟 1 ticket covers up to 6 players - bring your crew or face the phantoms alone!</li>
+          <li>📍 Secret start location revealed via email before game day</li>
+          <li>⏰ Start anytime between {locationTime} - play at your own pace</li>
+          <li>📸 Live photographer (4–6PM) to capture your ghost-hunting experience</li>
           <li>
-            Dress to impress, whether it's gothic glam or paranormal investigator chic. The best dressed crews win
-            prizes!
+            📲 The experience unfolds via our custom built app - Go at your own pace, with a personal pocket guide for
+            convenience
           </li>
-          <li>Feel free to bring your furry friends, dogs are extremely welcome to take part</li>
+        </ul>
+      </div>
+      <div class="bg-black/85 rounded-lg p-5 mb-4">
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Make It Your Own</h2>
+        <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
+          <li>🖤 Dress up to win prizes - gothic glam or investigator chic</li>
+          <li>🐾 Dog-friendly - your furry sidekick is welcome</li>
         </ul>
       </div>
       <div class="bg-black/85 rounded-lg p-5 mb-4">
@@ -104,7 +116,7 @@ const { locationTime } = Astro.props
       <div class="bg-black/85 rounded-lg p-5 mb-4">
         <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Ticket Info</h2>
         <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
-          <li>🎟 Team Ticket (up to 6 players): 20% off if you purchase today, $37.50 → $30</li>
+          <li>🎟 Team Ticket (up to 6 players): {originalTicketPrice} → {currentTicketPrice}</li>
           <li>⏰ Start anytime between {locationTime}</li>
           <li>📍 Playtime: 45-75 minutes</li>
           <li>👟 Walking: ~1-1.5 miles</li>

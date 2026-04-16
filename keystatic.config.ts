@@ -24,5 +24,19 @@ export default config({
         body: fields.emptyContent({ extension: 'md' }),
       },
     }),
+    reviews: collection({
+      label: 'Reviews',
+      slugField: 'reviewSlug',
+      path: 'src/content/reviews/*',
+      format: { data: 'yaml', contentField: 'body' },
+      schema: {
+        reviewSlug: fields.slug({ name: { label: 'Review slug' } }),
+        comment: fields.text({ label: 'Comment' }),
+        rating: fields.number({ label: 'Rating', defaultValue: 5, validation: { min: 1, max: 5 } }),
+        author: fields.text({ label: 'Author' }),
+        body: fields.emptyContent({ extension: 'md' }),
+      },
+      columns: ['comment', 'rating', 'author'],
+    }),
   },
 })

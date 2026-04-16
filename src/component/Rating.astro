@@ -1,14 +1,16 @@
 ---
 export interface Props {
   rating: number
+  width?: number
+  height?: number
 }
-const { rating } = Astro.props
+const { rating, width = 15, height = 16 } = Astro.props
 ---
 
 <div class="flex items-center gap-2">
   {
     Array.from({ length: rating }).map(_ => (
-      <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width={width} height={height} viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M7.22242 -7.39092e-08L9.6299 5.22929L14.4448 5.88295L11.1386 9.90951L12.0374 15.6879L7.22242 13.0732L2.40747 15.6879L3.31429 9.90951L5.10397e-08 5.88295L4.81495 5.22929L7.22242 -7.39092e-08Z"
           fill="#3CE0F2"

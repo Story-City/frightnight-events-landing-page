@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../layouts/Layout.astro'
+import Header from '@component/Header.astro'
+import ReviewSummary from '@component/ReviewSummary.astro'
+
+const reviews = await getCollection('reviews')
+const reviewData = reviews.map(review => review.data)
+---
+
+<Layout title="Reviews" description="Reviews of the Ghost Hunters experience">
+  <main class="bg-black min-h-screen overflow-hidden">
+    <Header />
+    <div class="font-compressed py-12 px-4 max-w-6xl mx-auto">
+      <h1 class="text-3xl font-bold font-hacked text-white mb-8">Reviews</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          reviewData.map(review => (
+            <ReviewSummary comment={review.comment} rating={review.rating} author={review.author} />
+          ))
+        }
+      </div>
+    </div>
+  </main>
+</Layout>

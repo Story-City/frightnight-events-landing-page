@@ -41,7 +41,11 @@ const description = `Brave a spooky ghost hunt through the streets of ${cityTitl
       ticketSaleLink={ticketSaleLink}
     />
     <Content cityName={cityTitleName} />
-    <FAQModal locationTime={locationTime} />
+    <FAQModal
+      locationTime={locationTime}
+      originalTicketPrice={entry.originalTicketPrice}
+      currentTicketPrice={entry.currentTicketPrice}
+    />
     <Gallery
       title="WHAT TO EXPECT"
       description="A glimpse of the night: street hunts, team play, photo-worthy moments, and surprises waiting around every corner."

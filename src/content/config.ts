@@ -13,4 +13,12 @@ const cities = defineCollection({
   }),
 })
 
-export const collections = { cities }
+const reviews = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/reviews' }),
+  schema: z.object({
+    comment: z.string(),
+    rating: z.number(),
+    author: z.string(),
+  }),
+})
+export const collections = { cities, reviews }
