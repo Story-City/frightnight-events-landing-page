@@ -177,6 +177,33 @@ const slides: Slide[] = [
       })
     }
 
+    // Touch swipe support for mobile
+    var viewport = root.querySelector('.gallery-viewport-wrapper')
+    var touchStartX = 0
+    var touchStartY = 0
+    var SWIPE_THRESHOLD = 50
+
+    if (viewport) {
+      viewport.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].clientX
+        touchStartY = e.changedTouches[0].clientY
+      }, { passive: true })
+
+      viewport.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX
+        var dy = e.changedTouches[0].clientY - touchStartY
+
+        // Only trigger if horizontal movement exceeds vertical (avoid hijacking scroll)
+        if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+          if (dx < 0) {
+            goTo(current >= slides.length - 1 ? 0 : current + 1)
+          } else {
+            goTo(current <= 0 ? slides.length - 1 : current - 1)
+          }
+        }
+      }, { passive: true })
+    }
+
     syncVideos()
   })
 </script>
