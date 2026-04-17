@@ -39,14 +39,12 @@ const description = `Brave a spooky ghost hunt through the streets of ${cityTitl
       ticketHref={ticketSaleLink}
       citySlug={Astro.params.slug}
     />
-    <div data-glitch-reveal>
-      <CTA
-        originalTicketPrice={entry.originalTicketPrice}
-        currentTicketPrice={entry.currentTicketPrice}
-        ticketSaleLink={ticketSaleLink}
-        locationLabel={cityTitleName}
-      />
-    </div>
+    <CTA
+      originalTicketPrice={entry.originalTicketPrice}
+      currentTicketPrice={entry.currentTicketPrice}
+      ticketSaleLink={ticketSaleLink}
+      locationLabel={cityTitleName}
+    />
     <div data-reveal>
       <Content cityName={cityTitleName} />
     </div>

@@ -3,7 +3,7 @@ reviewSlug: ''
 comment: An exclusive ghost hunting experience, a really fun way to explore a city.
 rating: 5
 author: '@kadenconnors'
-videoUrl: 'https://www.youtube.com/watch?v=9svzRAIwEuI'
+videoUrl: 'https://www.youtube.com/shorts/qPZomcu3QGA'
 socials:
   - platform: tiktok
     url: 'https://www.tiktok.com/@kadenconnors'

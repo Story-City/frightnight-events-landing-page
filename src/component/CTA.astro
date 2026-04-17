@@ -21,7 +21,9 @@ const headline = locationLabel === 'Houston' ? '33% Off Sale happening now' : '2
   <div class="bg-cyan/25 pr-4 max-w-[500px] ml-auto py-6 cta-wrapper lg:hidden flex">
     <div class="cta-content flex flex-col">
       <div>
-        <div class="text-2xl leading-tight text-balance tracking-wide pl-16">{headline}</div>
+        <div class="text-2xl leading-tight text-balance tracking-wide pl-16">
+          <span class="glitch" data-text={headline}>{headline}</span>
+        </div>
         <div class="flex items-center pl-22">
           <span class="text-red text-xl line-through mr-4.5 tracking-wide">{originalTicketPrice}</span>
           <span class="text-[32px] leading-tight tracking-wide">{currentTicketPrice}</span>
@@ -38,7 +40,9 @@ const headline = locationLabel === 'Houston' ? '33% Off Sale happening now' : '2
     <div class="desktop-cta-wrapper-clip bg-cyan/25 w-full h-full absolute top-0 left-0"></div>
     <div class="desktop-cta-content flex items-center">
       <div class="text-center">
-        <div class="text-2xl leading-tight tracking-wide w-max">{headline}</div>
+        <div class="text-2xl leading-tight tracking-wide w-max">
+          <span class="glitch" data-text={headline}>{headline}</span>
+        </div>
         <div class="flex items-center">
           <span class="text-red text-xl line-through mr-4.5 tracking-wide">{originalTicketPrice}</span>
           <span class="text-[32px] leading-tight tracking-wide">{currentTicketPrice}</span>
