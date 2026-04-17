@@ -10,6 +10,7 @@ const cities = defineCollection({
     currentTicketPrice: z.string(),
     ticketSaleLink: z.string(),
     locationTime: z.string().default('12PM to 7PM'),
+    galleryVideoUrl: z.string().optional(),
   }),
 })
 

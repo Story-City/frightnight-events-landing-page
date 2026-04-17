@@ -21,6 +21,7 @@ export default config({
         currentTicketPrice: fields.text({ label: 'Current ticket price' }),
         ticketSaleLink: fields.url({ label: 'Ticket sale link' }),
         locationTime: fields.text({ label: 'Location time' }),
+        galleryVideoUrl: fields.url({ label: 'Gallery YouTube video URL (optional)' }),
         body: fields.emptyContent({ extension: 'md' }),
       },
     }),
