@@ -46,11 +46,11 @@ const featuredVideoId = featured?.videoUrl ? youtubeId(featured.videoUrl) : null
       heroFaded={true}
     />
     <div class="reviews-overlay relative z-10 font-compressed px-4 max-w-6xl mx-auto pt-24">
-      <h1 class="text-4xl font-bold font-hacked text-white mb-8 text-center lg:text-left">Reviews</h1>
+      <h1 class="text-4xl font-bold font-hacked text-white mb-8 text-center lg:text-left glitch-reveal" data-glitch-reveal>Reviews</h1>
 
       {
         featured && featuredVideoId && (
-          <section class="max-w-3xl mx-auto mb-12 text-center">
+          <section class="max-w-3xl mx-auto mb-12 text-center glitch-reveal" data-glitch-reveal>
             <div class="mb-5">
               <YouTubeLite videoId={featuredVideoId} title={`Review by ${featured.author}`} />
             </div>
@@ -107,7 +107,9 @@ const featuredVideoId = featured?.videoUrl ? youtubeId(featured.videoUrl) : null
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-16">
         {
           rest.map(review => (
-            <ReviewSummary comment={review.comment} rating={review.rating} author={review.author} />
+            <div class="glitch-reveal" data-glitch-reveal>
+              <ReviewSummary comment={review.comment} rating={review.rating} author={review.author} />
+            </div>
           ))
         }
       </div>
@@ -129,4 +131,5 @@ const featuredVideoId = featured?.videoUrl ? youtubeId(featured.videoUrl) : null
       margin-top: -850px;
     }
   }
+
 </style>
