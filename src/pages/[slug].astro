@@ -33,7 +33,12 @@ const description = `Brave a spooky ghost hunt through the streets of ${cityTitl
 
 <Layout title={`Frightnight · The Immersive ${cityTitleName} Event`} description={description}>
   <main class="bg-black min-h-screen overflow-hidden">
-    <Header locationLabel={cityTitleName} eventDateLabel={eventDateLabel} ticketHref={ticketSaleLink} />
+    <Header
+      locationLabel={cityTitleName}
+      eventDateLabel={eventDateLabel}
+      ticketHref={ticketSaleLink}
+      citySlug={Astro.params.slug}
+    />
     <CTA
       originalTicketPrice={entry.originalTicketPrice}
       currentTicketPrice={entry.currentTicketPrice}

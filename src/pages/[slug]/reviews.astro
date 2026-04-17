@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../../layouts/Layout.astro'
+import Header from '@component/Header.astro'
+import ReviewSummary from '@component/ReviewSummary.astro'
+import FAQModal from '@component/FAQModal.astro'
+import { formatEventDateLabel } from '../../lib/formatEventDate'
+
+export async function getStaticPaths() {
+  const cities = await getCollection('cities')
+  return cities.map(item => ({
+    params: { slug: item.id },
+    props: { entry: item.data },
+  }))
+}
+
+const { entry } = Astro.props
+
+const city = String(entry.cityName ?? '').trim()
+const cityTitleName = city || 'Event'
+const eventDateLabel = formatEventDateLabel(entry.eventDate) || 'DATE'
+const ticketSaleLink =
+  typeof entry.ticketSaleLink === 'string' && entry.ticketSaleLink.trim() !== '' ? entry.ticketSaleLink : '#tickets'
+
+const reviews = await getCollection('reviews')
+const reviewData = reviews.map(review => review.data)
+---
+
+<Layout title={`Reviews · Frightnight ${cityTitleName}`} description="Reviews of the Ghost Hunters experience">
+  <main class="bg-black min-h-screen overflow-hidden">
+    <Header
+      locationLabel={cityTitleName}
+      eventDateLabel={eventDateLabel}
+      ticketHref={ticketSaleLink}
+      citySlug={Astro.params.slug}
+      heroFaded={true}
+    />
+    <div class="reviews-overlay relative z-10 font-compressed px-4 max-w-6xl mx-auto pt-24">
+      <h1 class="text-4xl font-bold font-hacked text-white mb-8 text-center lg:text-left">Reviews</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-16">
+        {
+          reviewData.map(review => (
+            <ReviewSummary comment={review.comment} rating={review.rating} author={review.author} />
+          ))
+        }
+      </div>
+    </div>
+    <FAQModal
+      locationTime={entry.locationTime}
+      originalTicketPrice={entry.originalTicketPrice}
+      currentTicketPrice={entry.currentTicketPrice}
+    />
+  </main>
+</Layout>
+
+<style>
+  .reviews-overlay {
+    margin-top: -780px;
+  }
+  @media (min-width: 1024px) {
+    .reviews-overlay {
+      margin-top: -850px;
+    }
+  }
+</style>

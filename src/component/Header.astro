@@ -3,29 +3,67 @@ export interface Props {
   locationLabel?: string
   eventDateLabel?: string
   ticketHref?: string
+  citySlug?: string
+  heroFaded?: boolean
 }
 
-const { locationLabel = '', eventDateLabel = '', ticketHref = '' } = Astro.props
+const { locationLabel = '', eventDateLabel = '', ticketHref = '', citySlug = '', heroFaded = false } = Astro.props
 
 const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {}
+const reviewsHref = citySlug ? `/${citySlug}/reviews` : '/reviews'
+const homeHref = citySlug ? `/${citySlug}` : '/'
 ---
 
 <nav id="top-nav" class="fixed top-0 left-0 right-0 z-40 transition-colors duration-300 font-hacked">
-  <div class="max-w-6xl w-full mx-auto flex justify-center lg:justify-end px-5 py-2">
-    <a href="/reviews" class="text-white tracking-wide text-base self-center mr-6 font-hacked">REVIEWS</a>
-    <a href="#" data-faq-trigger class="text-white tracking-wide text-base self-center mr-6 font-hacked">MORE INFO</a>
-    {
-      ticketHref && (
-        <a href={ticketHref} class="buy-tickets-btn block" {...ticketLinkAttrs}>
-          <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true" />
-          <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
-        </a>
-      )
-    }
+  <div class="max-w-6xl w-full mx-auto flex justify-between items-center px-5 py-2">
+    <button
+      id="hamburger-btn"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      class="min-[700px]:hidden text-white p-2 -ml-2 cursor-pointer bg-transparent border-none"
+    >
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+    </button>
+    <a href={homeHref} class="hidden min-[700px]:block text-white tracking-wide text-lg lg:text-xl font-hacked">FRIGHTNIGHT</a>
+    <div class="flex items-center">
+      <a href={reviewsHref} class="hidden min-[700px]:inline text-white tracking-wide text-base self-center mr-6 font-hacked">REVIEWS</a>
+      <a href="#" data-faq-trigger class="hidden min-[700px]:inline text-white tracking-wide text-base self-center mr-6 font-hacked">MORE INFO</a>
+      {
+        ticketHref && (
+          <a href={ticketHref} class="buy-tickets-btn block" {...ticketLinkAttrs}>
+            <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true" />
+            <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
+          </a>
+        )
+      }
+    </div>
   </div>
 </nav>
 
-<div class="hero-outer w-full min-h-[780px] lg:min-h-[850px] text-white font-hacked bg-black relative overflow-hidden">
+<div id="mobile-menu" class="hidden fixed inset-0 z-50 bg-black/95 font-hacked">
+  <div class="flex justify-end p-5">
+    <button
+      id="mobile-menu-close"
+      type="button"
+      aria-label="Close menu"
+      class="text-white text-3xl cursor-pointer bg-transparent border-none p-2"
+    >
+      ✕
+    </button>
+  </div>
+  <nav class="flex flex-col items-center gap-8 pt-8">
+    <a href={homeHref} class="text-white tracking-wide text-3xl font-hacked">FRIGHTNIGHT</a>
+    <a href={reviewsHref} class="text-white tracking-wide text-2xl font-hacked">REVIEWS</a>
+    <a href="#" data-faq-trigger class="text-white tracking-wide text-2xl font-hacked">MORE INFO</a>
+  </nav>
+</div>
+
+<div class:list={["hero-outer w-full min-h-[780px] lg:min-h-[850px] text-white font-hacked bg-black relative overflow-hidden", heroFaded && "hero-outer--faded"]}>
   <div
     class="hero-content flex flex-col w-full min-h-[780px] lg:min-h-[850px] relative pb-6 px-5 max-w-[1400px] mx-auto"
   >
@@ -55,6 +93,10 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
 </div>
 
 <style>
+  .hero-outer--faded .hero-content {
+    opacity: 0.15;
+  }
+
   .hero-content {
     background-blend-mode: darken;
     background:
@@ -158,4 +200,20 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
       { passive: true },
     )
   }
+
+  const menu = document.getElementById('mobile-menu')
+  const openBtn = document.getElementById('hamburger-btn')
+  const closeBtn = document.getElementById('mobile-menu-close')
+  const closeMenu = () => {
+    menu?.classList.add('hidden')
+    openBtn?.setAttribute('aria-expanded', 'false')
+    document.body.style.overflow = ''
+  }
+  openBtn?.addEventListener('click', () => {
+    menu?.classList.remove('hidden')
+    openBtn.setAttribute('aria-expanded', 'true')
+    document.body.style.overflow = 'hidden'
+  })
+  closeBtn?.addEventListener('click', closeMenu)
+  menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu))
 </script>
