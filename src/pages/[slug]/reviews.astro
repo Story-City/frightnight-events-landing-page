@@ -1,10 +1,10 @@
 ---
 import { getCollection } from 'astro:content'
-import Layout from '../../layouts/Layout.astro'
+import Layout from '@/layouts/Layout.astro'
 import Header from '@component/Header.astro'
 import ReviewSummary from '@component/ReviewSummary.astro'
 import FAQModal from '@component/FAQModal.astro'
-import { formatEventDateLabel } from '../../lib/formatEventDate'
+import { formatEventDateLabel } from '@/lib/formatEventDate'
 
 export async function getStaticPaths() {
   const cities = await getCollection('cities')
