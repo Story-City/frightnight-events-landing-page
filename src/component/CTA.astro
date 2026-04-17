@@ -3,18 +3,25 @@ export interface Props {
   originalTicketPrice?: string
   currentTicketPrice?: string
   ticketSaleLink?: string
+  locationLabel?: string
 }
 
-const { originalTicketPrice = '$37.50', currentTicketPrice = '$30', ticketSaleLink = '#tickets' } = Astro.props
+const {
+  originalTicketPrice = '$37.50',
+  currentTicketPrice = '$30',
+  ticketSaleLink = '#tickets',
+  locationLabel = 'LOCATION',
+} = Astro.props
 
 const ticketAttrs = ticketSaleLink.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+const headline = locationLabel === 'Houston' ? '33% Off Sale happening now' : '20% Off Sale happening now'
 ---
 
 <div class="w-full max-w-6xl mx-auto text-white font-hacked">
   <div class="bg-cyan/25 pr-4 max-w-[500px] ml-auto py-6 cta-wrapper lg:hidden flex">
     <div class="cta-content flex flex-col">
       <div>
-        <div class="text-2xl leading-tight tracking-wide pl-16">Up to 6 players</div>
+        <div class="text-2xl leading-tight text-balance tracking-wide pl-16">{headline}</div>
         <div class="flex items-center pl-22">
           <span class="text-red text-xl line-through mr-4.5 tracking-wide">{originalTicketPrice}</span>
           <span class="text-[32px] leading-tight tracking-wide">{currentTicketPrice}</span>
@@ -31,14 +38,14 @@ const ticketAttrs = ticketSaleLink.startsWith('http') ? { target: '_blank', rel:
     <div class="desktop-cta-wrapper-clip bg-cyan/25 w-full h-full absolute top-0 left-0"></div>
     <div class="desktop-cta-content flex items-center">
       <div class="text-center">
-        <div class="text-2xl leading-tight tracking-wide">Up to 6 players</div>
+        <div class="text-2xl leading-tight tracking-wide w-max">{headline}</div>
         <div class="flex items-center">
           <span class="text-red text-xl line-through mr-4.5 tracking-wide">{originalTicketPrice}</span>
           <span class="text-[32px] leading-tight tracking-wide">{currentTicketPrice}</span>
         </div>
       </div>
 
-      <a href={ticketSaleLink} class="translate-x-1/2 buy-tickets-btn block" {...ticketAttrs}>
+      <a href={ticketSaleLink} class="translate-x-1/2 buy-tickets-btn block w-max" {...ticketAttrs}>
         <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
         <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
       </a>
@@ -86,8 +93,9 @@ const ticketAttrs = ticketSaleLink.startsWith('http') ? { target: '_blank', rel:
     .buy-tickets-btn {
       margin-top: 0px;
       padding: 20px 80px;
-      transform: translateX(20%);
+      transform: translateX(-80px);
       z-index: 2;
+      width: max-content;
     }
     .buy-tickets-btn__fill {
       clip-path: polygon(0 0, 80% 0%, 100% 100%, 20% 100%);

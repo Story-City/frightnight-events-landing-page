@@ -21,7 +21,6 @@ const { entry } = Astro.props
 
 const city = String(entry.cityName ?? '').trim()
 const cityTitleName = city || 'Event'
-const locationLabel = city || 'LOCATION'
 const eventDateLabel = formatEventDateLabel(entry.eventDate) || 'DATE'
 const ticketSaleLink =
   typeof entry.ticketSaleLink === 'string' && entry.ticketSaleLink.trim() !== '' ? entry.ticketSaleLink : '#tickets'
@@ -34,11 +33,12 @@ const description = `Brave a spooky ghost hunt through the streets of ${cityTitl
 
 <Layout title={`Frightnight · The Immersive ${cityTitleName} Event`} description={description}>
   <main class="bg-black min-h-screen overflow-hidden">
-    <Header locationLabel={locationLabel} eventDateLabel={eventDateLabel} ticketHref={ticketSaleLink} />
+    <Header locationLabel={cityTitleName} eventDateLabel={eventDateLabel} ticketHref={ticketSaleLink} />
     <CTA
       originalTicketPrice={entry.originalTicketPrice}
       currentTicketPrice={entry.currentTicketPrice}
       ticketSaleLink={ticketSaleLink}
+      locationLabel={cityTitleName}
     />
     <Content cityName={cityTitleName} />
     <FAQModal
