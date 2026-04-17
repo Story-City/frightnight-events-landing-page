@@ -34,7 +34,7 @@ const discount = cityName === 'Houston' ? '33%' : '20%'
         More Info
       </a>
     </div>
-    <div class="blur-bg"></div>
+    <div class="blur-bg" data-reveal="fade" style="transition-delay: 400ms;"></div>
   </div>
   <div class="min-h-[500px] flex items-start">
     <Quote />
@@ -47,10 +47,9 @@ const discount = cityName === 'Houston' ? '33%' : '20%'
     position: absolute;
     top: 0;
     left: 0;
-    background: linear-gradient(180deg, #33afc1 0%, #b4f4ff 100%);
+    background: linear-gradient(180deg, rgba(51, 175, 193, 0.38) 0%, rgba(180, 244, 255, 0.38) 100%);
     filter: blur(113px);
     border-radius: 560px;
-    opacity: 0.38;
     width: 100%;
     height: 64%;
     transform: translateX(17%);

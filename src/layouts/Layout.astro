@@ -129,5 +129,146 @@ const { title, description } = Astro.props
   <body class="bg-black">
     <slot />
     <CookieConsent />
+
+    <style is:global>
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+        will-change: opacity, transform;
+      }
+      [data-reveal].is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      [data-reveal='fade'] {
+        opacity: 0;
+        transform: none;
+        transition: opacity 0.45s ease;
+      }
+      [data-reveal='fade'].is-visible {
+        opacity: 1;
+        transform: none;
+      }
+      [data-glitch-reveal] {
+        opacity: 0;
+        transform: translateY(10px);
+        filter: blur(2px);
+        transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
+      }
+      [data-glitch-reveal].is-visible {
+        animation: reveal-glitch 0.35s steps(3, end) forwards;
+      }
+      @keyframes reveal-glitch {
+        0% {
+          opacity: 0;
+          transform: translate(-4px, 8px) skewX(-4deg);
+          filter: blur(2px);
+          clip-path: inset(0 0 60% 0);
+        }
+        25% {
+          opacity: 0.7;
+          transform: translate(3px, 4px) skewX(2deg);
+          filter: blur(1px);
+          clip-path: inset(30% 0 10% 0);
+        }
+        55% {
+          opacity: 0.9;
+          transform: translate(-2px, 2px) skewX(-1deg);
+          filter: blur(0);
+          clip-path: inset(0 0 20% 0);
+        }
+        80% {
+          opacity: 1;
+          transform: translate(1px, 0) skewX(0);
+          clip-path: inset(0);
+        }
+        100% {
+          opacity: 1;
+          transform: translate(0, 0);
+          filter: blur(0);
+          clip-path: inset(0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        [data-reveal],
+        [data-glitch-reveal] {
+          opacity: 1;
+          transform: none;
+          transition: none;
+          animation: none;
+          filter: none;
+        }
+      }
+
+      .glitch {
+        position: relative;
+        display: inline-block;
+      }
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      .glitch::before {
+        color: var(--color-neon);
+        clip-path: inset(0 0 100% 0);
+        text-shadow: 1px 0 0 var(--color-neon);
+        mix-blend-mode: screen;
+      }
+      .glitch::after {
+        color: var(--color-red);
+        clip-path: inset(100% 0 0 0);
+        text-shadow: -1px 0 0 var(--color-red);
+        mix-blend-mode: screen;
+      }
+      .glitch.fire::before {
+        animation: glitch-top 0.45s steps(3, end) 1;
+      }
+      .glitch.fire::after {
+        animation: glitch-bottom 0.4s steps(3, end) 1;
+      }
+
+      @keyframes glitch-top {
+        0%   { clip-path: inset(0 0 100% 0); transform: translate(0, 0); }
+        20%  { clip-path: inset(5% 0 75% 0); transform: translate(-3px, -1px); }
+        45%  { clip-path: inset(20% 0 60% 0); transform: translate(3px, 1px); }
+        70%  { clip-path: inset(45% 0 45% 0); transform: translate(-2px, 1px); }
+        100% { clip-path: inset(0 0 100% 0); transform: translate(0, 0); }
+      }
+      @keyframes glitch-bottom {
+        0%   { clip-path: inset(100% 0 0 0); transform: translate(0, 0); }
+        20%  { clip-path: inset(65% 0 20% 0); transform: translate(3px, 1px); }
+        45%  { clip-path: inset(40% 0 35% 0); transform: translate(-3px, -1px); }
+        70%  { clip-path: inset(20% 0 55% 0); transform: translate(2px, 1px); }
+        100% { clip-path: inset(100% 0 0 0); transform: translate(0, 0); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .glitch.fire::before,
+        .glitch.fire::after {
+          animation: none;
+        }
+      }
+    </style>
+
+    <script>
+      const io = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible')
+              io.unobserve(entry.target)
+            }
+          })
+        },
+        { threshold: 0, rootMargin: '0px' },
+      )
+      document.querySelectorAll('[data-reveal], [data-glitch-reveal]').forEach(el => io.observe(el))
+    </script>
   </body>
 </html>

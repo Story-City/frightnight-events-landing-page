@@ -33,23 +33,34 @@ const description = `Brave a spooky ghost hunt through the streets of ${cityTitl
 
 <Layout title={`Frightnight · The Immersive ${cityTitleName} Event`} description={description}>
   <main class="bg-black min-h-screen overflow-hidden">
-    <Header locationLabel={cityTitleName} eventDateLabel={eventDateLabel} ticketHref={ticketSaleLink} />
+    <Header
+      locationLabel={cityTitleName}
+      eventDateLabel={eventDateLabel}
+      ticketHref={ticketSaleLink}
+      citySlug={Astro.params.slug}
+    />
     <CTA
       originalTicketPrice={entry.originalTicketPrice}
       currentTicketPrice={entry.currentTicketPrice}
       ticketSaleLink={ticketSaleLink}
       locationLabel={cityTitleName}
     />
-    <Content cityName={cityTitleName} />
+    <div data-reveal>
+      <Content cityName={cityTitleName} />
+    </div>
     <FAQModal
       locationTime={locationTime}
       originalTicketPrice={entry.originalTicketPrice}
       currentTicketPrice={entry.currentTicketPrice}
     />
-    <Gallery
-      title="WHAT TO EXPECT"
-      description="A glimpse of the night: street hunts, team play, photo-worthy moments, and surprises waiting around every corner."
-    />
-    <Promise />
+    <div data-glitch-reveal>
+      <Gallery
+        title="WHAT TO EXPECT"
+        description="A glimpse of the night: street hunts, team play, photo-worthy moments, and surprises waiting around every corner."
+      />
+    </div>
+    <div data-reveal>
+      <Promise />
+    </div>
   </main>
 </Layout>

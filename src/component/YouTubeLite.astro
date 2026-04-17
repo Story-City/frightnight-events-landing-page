@@ -1,0 +1,177 @@
+---
+export interface Props {
+  videoId: string
+  title?: string
+  vertical?: boolean
+}
+
+const { videoId, title = 'Play video', vertical = false } = Astro.props
+---
+
+<div
+  class:list={['yt-lite', vertical && 'yt-lite--vertical']}
+  data-yt-lite
+  data-video-id={videoId}
+  data-yt-title={title}
+>
+  <img
+    class="yt-lite__thumb"
+    src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
+    data-yt-fallback={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+    alt=""
+    loading="lazy"
+    decoding="async"
+  />
+  <button type="button" class="yt-lite__play" aria-label={title} data-yt-play>
+    <span class="yt-lite__ring" aria-hidden="true"></span>
+    <svg class="yt-lite__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8 5.5v13l11-6.5z"></path>
+    </svg>
+  </button>
+</div>
+
+<style>
+  .yt-lite {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--color-black);
+    overflow: hidden;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  .yt-lite--vertical {
+    aspect-ratio: 9 / 16;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .yt-lite__thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .yt-lite:hover .yt-lite__thumb {
+    transform: scale(1.03);
+  }
+
+  .yt-lite::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.5) 100%);
+    pointer-events: none;
+  }
+
+  .yt-lite__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 88px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .yt-lite__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--color-neon);
+    opacity: 0.9;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    box-shadow: 0 0 24px color-mix(in srgb, var(--color-neon) 60%, transparent);
+  }
+
+  .yt-lite:hover .yt-lite__ring,
+  .yt-lite__play:focus-visible .yt-lite__ring {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+
+  .yt-lite__play:focus-visible {
+    outline: none;
+  }
+  .yt-lite__play:focus-visible .yt-lite__ring {
+    box-shadow: 0 0 0 3px var(--color-black), 0 0 0 5px var(--color-neon);
+  }
+
+  .yt-lite__icon {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+    fill: var(--color-black);
+    margin-left: 4px;
+  }
+
+  @media (min-width: 768px) {
+    .yt-lite__play {
+      width: 104px;
+      height: 104px;
+    }
+    .yt-lite__icon {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  .yt-lite.is-playing .yt-lite__thumb,
+  .yt-lite.is-playing .yt-lite__play,
+  .yt-lite.is-playing::after {
+    display: none;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-yt-lite]').forEach(root => {
+    const btn = root.querySelector<HTMLButtonElement>('[data-yt-play]')
+    const img = root.querySelector<HTMLImageElement>('.yt-lite__thumb')
+
+    if (img) {
+      img.addEventListener(
+        'error',
+        () => {
+          const fallback = img.getAttribute('data-yt-fallback')
+          if (fallback && img.src !== fallback) img.src = fallback
+        },
+        { once: true },
+      )
+    }
+
+    const activate = () => {
+      const id = root.getAttribute('data-video-id')
+      if (!id) return
+      const iframe = document.createElement('iframe')
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+      iframe.allowFullscreen = true
+      iframe.title = root.getAttribute('data-yt-title') || 'YouTube video'
+      iframe.style.position = 'absolute'
+      iframe.style.inset = '0'
+      iframe.style.width = '100%'
+      iframe.style.height = '100%'
+      iframe.style.border = '0'
+      root.classList.add('is-playing')
+      root.appendChild(iframe)
+    }
+
+    btn?.addEventListener('click', activate)
+    root.addEventListener('click', e => {
+      if (e.target === root || e.target === img) activate()
+    })
+  })
+</script>

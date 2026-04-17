@@ -1,0 +1,140 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '@/layouts/Layout.astro'
+import Header from '@component/Header.astro'
+import ReviewSummary from '@component/ReviewSummary.astro'
+import Rating from '@component/Rating.astro'
+import FAQModal from '@component/FAQModal.astro'
+import YouTubeLite from '@component/YouTubeLite.astro'
+import { formatEventDateLabel } from '@/lib/formatEventDate'
+
+function youtubeId(url: string): string | null {
+  const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/)
+  return m ? m[1] : null
+}
+
+export async function getStaticPaths() {
+  const cities = await getCollection('cities')
+  return cities.map(item => ({
+    params: { slug: item.id },
+    props: { entry: item.data },
+  }))
+}
+
+const { entry } = Astro.props
+
+const city = String(entry.cityName ?? '').trim()
+const cityTitleName = city || 'Event'
+const eventDateLabel = formatEventDateLabel(entry.eventDate) || 'DATE'
+const ticketSaleLink =
+  typeof entry.ticketSaleLink === 'string' && entry.ticketSaleLink.trim() !== '' ? entry.ticketSaleLink : '#tickets'
+
+const reviews = await getCollection('reviews')
+const allReviews = reviews.map(review => review.data)
+const featured = allReviews.find(r => r.videoUrl && youtubeId(r.videoUrl))
+const rest = featured ? allReviews.filter(r => r !== featured) : allReviews
+const featuredVideoId = featured?.videoUrl ? youtubeId(featured.videoUrl) : null
+const featuredIsVertical = featured?.videoUrl?.includes('/shorts/') ?? false
+---
+
+<Layout title={`Reviews · Frightnight ${cityTitleName}`} description="Reviews of the Ghost Hunters experience">
+  <main class="bg-black min-h-screen overflow-hidden">
+    <Header
+      locationLabel={cityTitleName}
+      eventDateLabel={eventDateLabel}
+      ticketHref={ticketSaleLink}
+      citySlug={Astro.params.slug}
+      heroFaded={true}
+    />
+    <div class="reviews-overlay relative z-10 font-compressed px-4 max-w-6xl mx-auto pt-24">
+      <h1 class="text-4xl font-bold font-hacked text-white mb-8 text-center lg:text-left glitch-reveal" data-glitch-reveal>Reviews</h1>
+
+      {
+        featured && featuredVideoId && (
+          <section class="max-w-3xl mx-auto mb-12 text-center glitch-reveal" data-glitch-reveal>
+            <div class="mb-5">
+              <YouTubeLite
+                videoId={featuredVideoId}
+                title={`Review by ${featured.author}`}
+                vertical={featuredIsVertical}
+              />
+            </div>
+            <div class="flex justify-center mb-3">
+              <Rating rating={featured.rating} width={24} height={24} />
+            </div>
+            <p class="text-zinc-200 text-xl md:text-2xl font-abeezee leading-relaxed max-w-2xl mx-auto mb-3">
+              "{featured.comment}"
+            </p>
+            <p class="text-white font-bold text-lg font-abeezee mb-3">— {featured.author}</p>
+            {featured.socials && featured.socials.length > 0 && (
+              <ul class="flex flex-wrap justify-center gap-4">
+                {featured.socials.map(s => (
+                  <li>
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-2 text-zinc-300 hover:text-neon transition-colors font-abeezee text-sm"
+                    >
+                      {s.platform === 'instagram' && (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
+                      )}
+                      {s.platform === 'tiktok' && (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.87a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.3z" />
+                        </svg>
+                      )}
+                      {s.platform === 'youtube' && (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z" />
+                        </svg>
+                      )}
+                      {s.platform === 'twitter' && (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-7-6.1 7H1.7l8-9.2L1 2h6.9l4.8 6.4L18.9 2zm-1.2 18h1.9L6.4 4H4.4l13.3 16z" />
+                        </svg>
+                      )}
+                      <span class="capitalize">{s.platform}</span>
+                      {s.followers && <span class="text-zinc-500">· {s.followers}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )
+      }
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-16">
+        {
+          rest.map(review => (
+            <div class="glitch-reveal h-full" data-glitch-reveal>
+              <ReviewSummary comment={review.comment} rating={review.rating} author={review.author} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <FAQModal
+      locationTime={entry.locationTime}
+      originalTicketPrice={entry.originalTicketPrice}
+      currentTicketPrice={entry.currentTicketPrice}
+    />
+  </main>
+</Layout>
+
+<style>
+  .reviews-overlay {
+    margin-top: -780px;
+  }
+  @media (min-width: 1024px) {
+    .reviews-overlay {
+      margin-top: -850px;
+    }
+  }
+
+</style>

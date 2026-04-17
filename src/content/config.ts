@@ -19,6 +19,16 @@ const reviews = defineCollection({
     comment: z.string(),
     rating: z.number(),
     author: z.string(),
+    videoUrl: z.string().optional(),
+    socials: z
+      .array(
+        z.object({
+          platform: z.enum(['instagram', 'tiktok', 'youtube', 'twitter']),
+          url: z.string(),
+          followers: z.string().optional(),
+        }),
+      )
+      .optional(),
   }),
 })
 export const collections = { cities, reviews }

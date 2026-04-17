@@ -34,6 +34,24 @@ export default config({
         comment: fields.text({ label: 'Comment' }),
         rating: fields.number({ label: 'Rating', defaultValue: 5, validation: { min: 1, max: 5 } }),
         author: fields.text({ label: 'Author' }),
+        videoUrl: fields.url({ label: 'Video URL (optional, YouTube)' }),
+        socials: fields.array(
+          fields.object({
+            platform: fields.select({
+              label: 'Platform',
+              options: [
+                { label: 'Instagram', value: 'instagram' },
+                { label: 'TikTok', value: 'tiktok' },
+                { label: 'YouTube', value: 'youtube' },
+                { label: 'Twitter', value: 'twitter' },
+              ],
+              defaultValue: 'instagram',
+            }),
+            url: fields.url({ label: 'Profile URL' }),
+            followers: fields.text({ label: 'Followers (optional)' }),
+          }),
+          { label: 'Social links' },
+        ),
         body: fields.emptyContent({ extension: 'md' }),
       },
       columns: ['comment', 'rating', 'author'],

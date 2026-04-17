@@ -3,41 +3,79 @@ export interface Props {
   locationLabel?: string
   eventDateLabel?: string
   ticketHref?: string
+  citySlug?: string
+  heroFaded?: boolean
 }
 
-const { locationLabel = '', eventDateLabel = '', ticketHref = '' } = Astro.props
+const { locationLabel = '', eventDateLabel = '', ticketHref = '', citySlug = '', heroFaded = false } = Astro.props
 
 const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {}
+const reviewsHref = citySlug ? `/${citySlug}/reviews` : '/reviews'
+const homeHref = citySlug ? `/${citySlug}` : '/'
 ---
 
-<nav id="top-nav" class="fixed top-0 left-0 right-0 z-40 transition-colors duration-300 font-hacked">
-  <div class="max-w-6xl w-full mx-auto flex justify-center lg:justify-end px-5 py-2">
-    <a href="/reviews" class="text-white tracking-wide text-base self-center mr-6 font-hacked">REVIEWS</a>
-    <a href="#" data-faq-trigger class="text-white tracking-wide text-base self-center mr-6 font-hacked">MORE INFO</a>
-    {
-      ticketHref && (
-        <a href={ticketHref} class="buy-tickets-btn block" {...ticketLinkAttrs}>
-          <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true" />
-          <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
-        </a>
-      )
-    }
+<nav id="top-nav" class="fixed top-0 left-0 right-0 z-60 transition-colors duration-300 font-hacked">
+  <div class="max-w-6xl w-full mx-auto flex justify-between items-center px-5 py-2">
+    <button
+      id="hamburger-btn"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      class="hamburger min-[700px]:hidden text-white p-2 -ml-2 cursor-pointer bg-transparent border-none"
+    >
+      <span class="hamburger__bar" aria-hidden="true"></span>
+      <span class="hamburger__bar" aria-hidden="true"></span>
+      <span class="hamburger__bar" aria-hidden="true"></span>
+    </button>
+    <a href={homeHref} class="hidden min-[700px]:block text-white tracking-wide text-lg lg:text-xl font-hacked">FRIGHTNIGHT</a>
+    <div class="flex items-center">
+      <a href={reviewsHref} class="hidden min-[700px]:inline text-white tracking-wide text-base self-center mr-6 font-hacked">REVIEWS</a>
+      <a href="#" data-faq-trigger class="hidden min-[700px]:inline text-white tracking-wide text-base self-center mr-6 font-hacked">MORE INFO</a>
+      {
+        ticketHref && (
+          <a href={ticketHref} class="buy-tickets-btn block" {...ticketLinkAttrs}>
+            <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true" />
+            <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
+          </a>
+        )
+      }
+    </div>
   </div>
 </nav>
 
-<div class="hero-outer w-full min-h-[780px] lg:min-h-[850px] text-white font-hacked bg-black relative overflow-hidden">
+<div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-black/95 font-hacked" aria-hidden="true">
+  <nav class="flex flex-col items-center gap-8 pt-28">
+    <a href={homeHref} class="text-white tracking-wide text-3xl font-hacked">FRIGHTNIGHT</a>
+    <a href={reviewsHref} class="text-white tracking-wide text-2xl font-hacked">REVIEWS</a>
+    <a href="#" data-faq-trigger class="text-white tracking-wide text-2xl font-hacked">MORE INFO</a>
+  </nav>
+</div>
+
+<div class:list={["hero-outer w-full min-h-[780px] lg:min-h-[850px] text-white font-hacked bg-black relative overflow-hidden isolate", heroFaded && "hero-outer--faded"]}>
   <div
     class="hero-content flex flex-col w-full min-h-[780px] lg:min-h-[850px] relative pb-6 px-5 max-w-[1400px] mx-auto"
   >
+    <div class="hero-static" aria-hidden="true">
+      {Array.from({ length: 12 }).map(() => <div class="hero-glitch-line" />)}
+    </div>
+    <div class="hero-edges" aria-hidden="true">
+      {Array.from({ length: 6 }).map(() => <div class="hero-glitch-vline" />)}
+    </div>
     <div class="max-w-6xl w-full mx-auto grow flex flex-col relative z-10">
       <div class="h-16"></div>
 
       <div class="w-full h-full mt-auto lg:mb-18">
-        <h1 class="text-6xl leading-tight text-white tracking-wide text-center lg:text-left">FRIGHTNIGHT</h1>
+        <h1 class="text-6xl leading-tight text-white tracking-wide text-center lg:text-left" data-glitch-reveal>
+          <span class="glitch" data-text="FRIGHTNIGHT">FRIGHTNIGHT</span>
+        </h1>
         <div class="flex flex-col lg:flex-row items-center justify-center lg:justify-between">
           {
             locationLabel && eventDateLabel && (
-              <div class="text-2xl font-hacked lg:ml-6 leading-tight flex items-center">
+              <div
+                class="text-2xl font-hacked lg:ml-6 leading-tight flex items-center"
+                data-reveal="fade"
+                style="transition-delay: 150ms;"
+              >
                 <span class="tracking-wide">{locationLabel}</span>
                 <span class="mx-3">/</span>
                 <span class="tracking-wide">{eventDateLabel}</span>
@@ -45,7 +83,11 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
             )
           }
 
-          <h2 class="text-2xl tracking-wide font-compressed text-center lg:text-left text-pretty">
+          <h2
+            class="text-2xl tracking-wide font-compressed text-center lg:text-left text-pretty"
+            data-reveal="fade"
+            style="transition-delay: 250ms;"
+          >
             Hunt ghosts. Survive hauntings. Save your city.
           </h2>
         </div>
@@ -55,6 +97,187 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
 </div>
 
 <style>
+  .hero-outer--faded .hero-content {
+    opacity: 0.05;
+  }
+
+  /* Hamburger → X */
+  .hamburger {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  .hamburger__bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+    transform-origin: center;
+  }
+  .hamburger.is-open .hamburger__bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger.is-open .hamburger__bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.is-open .hamburger__bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+  @media (min-width: 700px) {
+    .hamburger { display: none; }
+  }
+
+  /* Mobile menu fade */
+  .mobile-menu {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+  }
+  .mobile-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease, visibility 0s linear 0s;
+  }
+
+  /* TV static overlay on hero image (faded edges inherit TV shape) */
+  .hero-static {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: hard-light;
+    opacity: 0.4;
+    mask-image: radial-gradient(ellipse 70% 55% at 50% 55%, black 10%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 55%, black 10%, transparent 85%);
+    overflow: hidden;
+  }
+  .hero-static__noise {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    animation: static-jitter 0.18s steps(4) infinite;
+  }
+
+  @keyframes static-jitter {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-14px, 9px); }
+    50% { transform: translate(9px, -14px); }
+    75% { transform: translate(-9px, -9px); }
+    100% { transform: translate(14px, 14px); }
+  }
+
+  /* Horizontal interference bar sweeping down every few seconds */
+  .hero-static::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 18%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 40%,
+      rgba(255, 255, 255, 0.12) 50%,
+      rgba(255, 255, 255, 0.05) 60%,
+      transparent 100%
+    );
+    mix-blend-mode: overlay;
+    animation: tv-tear 7s linear infinite;
+  }
+
+  @keyframes tv-tear {
+    0%, 85%, 100% { transform: translateY(-120%); opacity: 0; }
+    88% { opacity: 1; }
+    98% { transform: translateY(700%); opacity: 1; }
+    99% { opacity: 0; }
+  }
+
+  .hero-content.glitching {
+    animation: hero-glitch 0.1s steps(4, end) 1;
+  }
+
+  @keyframes hero-glitch {
+    0%   { filter: none; transform: translate(0, 0); }
+    25%  { filter: hue-rotate(22deg) contrast(1.4) saturate(1.3); transform: translate(4px, 0); }
+    50%  { filter: hue-rotate(-15deg) contrast(1.25); transform: translate(-5px, 2px); }
+    75%  { filter: hue-rotate(10deg) brightness(1.2) saturate(1.4); transform: translate(3px, -1px); }
+    100% { filter: none; transform: translate(0, 0); }
+  }
+
+  .hero-glitch-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: var(--line-h, 2px);
+    top: var(--line-y, 50%);
+    background: var(--line-bg, var(--color-neon));
+    mix-blend-mode: screen;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .hero-glitch-line.fire {
+    animation: line-flash 0.1s steps(2, end) 1;
+  }
+
+  @keyframes line-flash {
+    0%   { opacity: 0; transform: translateX(0); }
+    50%  { opacity: 0.85; transform: translateX(var(--line-x, 6px)); }
+    100% { opacity: 0; transform: translateX(0); }
+  }
+
+  .hero-edges {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 96%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 96%, transparent 100%);
+  }
+
+  .hero-glitch-vline {
+    position: absolute;
+    top: var(--vline-top, 0);
+    bottom: var(--vline-bottom, 0);
+    width: var(--vline-w, 2px);
+    left: var(--vline-left, auto);
+    right: var(--vline-right, auto);
+    background: var(--vline-bg, var(--color-neon));
+    mix-blend-mode: screen;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .hero-glitch-vline.fire {
+    animation: vline-flash 0.1s steps(2, end) 1;
+  }
+
+  @keyframes vline-flash {
+    0%   { opacity: 0; transform: translateY(0); }
+    50%  { opacity: 0.85; transform: translateY(var(--vline-y, 6px)); }
+    100% { opacity: 0; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-static,
+    .hero-static::before,
+    .glitch::before,
+    .glitch::after,
+    .hero-content.glitching {
+      animation: none;
+    }
+    .hero-static { display: none; }
+  }
+
   .hero-content {
     background-blend-mode: darken;
     background:
@@ -157,5 +380,122 @@ const ticketLinkAttrs = ticketHref.startsWith('http') ? ({ target: '_blank', rel
       },
       { passive: true },
     )
+  }
+
+  const menu = document.getElementById('mobile-menu')
+  const hamburger = document.getElementById('hamburger-btn')
+  const closeMenu = () => {
+    menu?.classList.remove('is-open')
+    menu?.setAttribute('aria-hidden', 'true')
+    hamburger?.setAttribute('aria-expanded', 'false')
+    hamburger?.classList.remove('is-open')
+    document.body.style.overflow = ''
+  }
+  const openMenu = () => {
+    menu?.classList.add('is-open')
+    menu?.setAttribute('aria-hidden', 'false')
+    hamburger?.setAttribute('aria-expanded', 'true')
+    hamburger?.classList.add('is-open')
+    document.body.style.overflow = 'hidden'
+  }
+  hamburger?.addEventListener('click', () => {
+    if (hamburger.classList.contains('is-open')) closeMenu()
+    else openMenu()
+  })
+  menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu))
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  const TEXT_GLITCH_MIN_MS = 2000
+  const TEXT_GLITCH_JITTER_MS = 3000
+  const HLINE_MIN_MS = 250
+  const HLINE_JITTER_MS = 1200
+  const VLINE_MIN_MS = 800
+  const VLINE_JITTER_MS = 3000
+
+  if (!reduceMotion) {
+    document.querySelectorAll<HTMLElement>('.glitch').forEach(el => {
+      const scheduleGlitch = () => {
+        const delay = TEXT_GLITCH_MIN_MS + Math.random() * TEXT_GLITCH_JITTER_MS
+        setTimeout(() => {
+          el.classList.remove('fire')
+          void el.offsetWidth
+          el.classList.add('fire')
+          scheduleGlitch()
+        }, delay)
+      }
+      scheduleGlitch()
+    })
+
+    // Hero image filter glitch — paused. CSS retained for re-enable.
+    // const heroContent = document.querySelector<HTMLElement>('.hero-content')
+    // if (heroContent) {
+    //   const scheduleHeroGlitch = () => {
+    //     const delay = 4000 + Math.random() * 4000
+    //     setTimeout(() => {
+    //       heroContent.classList.remove('glitching')
+    //       void heroContent.offsetWidth
+    //       heroContent.classList.add('glitching')
+    //       scheduleHeroGlitch()
+    //     }, delay)
+    //   }
+    //   scheduleHeroGlitch()
+    // }
+
+    const glitchLines = document.querySelectorAll<HTMLElement>('.hero-glitch-line')
+    if (glitchLines.length) {
+      const palette = [
+        'var(--color-neon)',
+        'var(--color-red)',
+        'var(--color-cyan)',
+        'var(--color-light-gray)',
+      ]
+      const randomColor = () => palette[Math.floor(Math.random() * palette.length)]
+      const randomBackground = () => {
+        const stopCount = 2 + Math.floor(Math.random() * 3) // 2-4 stops
+        const stops: string[] = []
+        for (let i = 0; i < stopCount; i++) stops.push(randomColor())
+        return `linear-gradient(90deg, ${stops.join(', ')})`
+      }
+      const fireRandomLine = () => {
+        const line = glitchLines[Math.floor(Math.random() * glitchLines.length)]
+        line.style.setProperty('--line-y', `${Math.random() * 100}%`)
+        line.style.setProperty('--line-h', `${1 + Math.floor(Math.random() * 4)}px`)
+        line.style.setProperty('--line-x', `${(Math.random() - 0.5) * 24}px`)
+        line.style.setProperty('--line-bg', randomBackground())
+        line.classList.remove('fire')
+        void line.offsetWidth
+        line.classList.add('fire')
+        setTimeout(fireRandomLine, HLINE_MIN_MS + Math.random() * HLINE_JITTER_MS)
+      }
+      fireRandomLine()
+
+      const vLines = document.querySelectorAll<HTMLElement>('.hero-glitch-vline')
+      if (vLines.length) {
+        const randomVBackground = () => {
+          const stopCount = 2 + Math.floor(Math.random() * 3)
+          const stops: string[] = []
+          for (let i = 0; i < stopCount; i++) stops.push(randomColor())
+          return `linear-gradient(180deg, ${stops.join(', ')})`
+        }
+        const fireRandomVLine = () => {
+          const line = vLines[Math.floor(Math.random() * vLines.length)]
+          const onLeft = Math.random() < 0.5
+          const edgePct = Math.random() * 5
+          line.style.setProperty('--vline-left', onLeft ? `${edgePct}%` : 'auto')
+          line.style.setProperty('--vline-right', onLeft ? 'auto' : `${edgePct}%`)
+          line.style.setProperty('--vline-top', `${Math.random() * 70}%`)
+          line.style.setProperty('--vline-bottom', `${Math.random() * 20}%`)
+          line.style.setProperty('--vline-w', `${1 + Math.floor(Math.random() * 4)}px`)
+          line.style.setProperty('--vline-y', `${(Math.random() - 0.5) * 24}px`)
+          line.style.setProperty('--vline-bg', randomVBackground())
+          line.classList.remove('fire')
+          void line.offsetWidth
+          line.classList.add('fire')
+          setTimeout(fireRandomVLine, VLINE_MIN_MS + Math.random() * VLINE_JITTER_MS)
+        }
+        fireRandomVLine()
+      }
+    }
   }
 </script>
