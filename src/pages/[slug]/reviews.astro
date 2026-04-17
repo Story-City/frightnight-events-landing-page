@@ -62,8 +62,10 @@ const featuredIsVertical = featured?.videoUrl?.includes('/shorts/') ?? false
             <div class="flex justify-center mb-3">
               <Rating rating={featured.rating} width={24} height={24} />
             </div>
-            <p class="text-zinc-200 text-xl md:text-2xl font-abeezee leading-relaxed max-w-2xl mx-auto mb-3">
-              "{featured.comment}"
+            <p class="text-zinc-200 text-xl md:text-2xl font-hacked leading-relaxed max-w-2xl mx-auto mb-3">
+              <span class="glitch glitch--slow" data-text={`"${featured.comment}"`}>
+                "{featured.comment}"
+              </span>
             </p>
             <p class="text-white font-bold text-lg font-abeezee mb-3">— {featured.author}</p>
             {featured.socials && featured.socials.length > 0 && (

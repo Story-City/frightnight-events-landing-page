@@ -408,23 +408,31 @@ const homeHref = citySlug ? `/${citySlug}` : '/'
 
   const TEXT_GLITCH_MIN_MS = 2000
   const TEXT_GLITCH_JITTER_MS = 3000
+  const SLOW_GLITCH_MIN_MS = 8000
+  const SLOW_GLITCH_JITTER_MS = 12000
   const HLINE_MIN_MS = 250
   const HLINE_JITTER_MS = 1200
   const VLINE_MIN_MS = 800
   const VLINE_JITTER_MS = 3000
 
   if (!reduceMotion) {
-    document.querySelectorAll<HTMLElement>('.glitch').forEach(el => {
-      const scheduleGlitch = () => {
-        const delay = TEXT_GLITCH_MIN_MS + Math.random() * TEXT_GLITCH_JITTER_MS
+    const scheduleGlitchFor = (el: HTMLElement, minMs: number, jitterMs: number) => {
+      const run = () => {
+        const delay = minMs + Math.random() * jitterMs
         setTimeout(() => {
           el.classList.remove('fire')
           void el.offsetWidth
           el.classList.add('fire')
-          scheduleGlitch()
+          run()
         }, delay)
       }
-      scheduleGlitch()
+      run()
+    }
+    document.querySelectorAll<HTMLElement>('.glitch:not(.glitch--slow)').forEach(el => {
+      scheduleGlitchFor(el, TEXT_GLITCH_MIN_MS, TEXT_GLITCH_JITTER_MS)
+    })
+    document.querySelectorAll<HTMLElement>('.glitch.glitch--slow').forEach(el => {
+      scheduleGlitchFor(el, SLOW_GLITCH_MIN_MS, SLOW_GLITCH_JITTER_MS)
     })
 
     // Hero image filter glitch — paused. CSS retained for re-enable.
