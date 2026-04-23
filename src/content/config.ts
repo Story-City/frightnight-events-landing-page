@@ -6,8 +6,8 @@ const cities = defineCollection({
   schema: z.object({
     cityName: z.string(),
     eventDate: z.coerce.date(),
-    originalTicketPrice: z.string(),
-    currentTicketPrice: z.string(),
+    groupTicketPrice: z.string(),
+    soloTicketPrice: z.string(),
     ticketSaleLink: z.string(),
     locationTime: z.string().default('12PM to 7PM'),
     galleryVideoUrl: z.string().optional(),

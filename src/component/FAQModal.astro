@@ -1,11 +1,9 @@
 ---
 export interface Props {
   locationTime: string
-  originalTicketPrice: string
-  currentTicketPrice: string
 }
 
-const { locationTime, originalTicketPrice, currentTicketPrice } = Astro.props
+const { locationTime } = Astro.props
 ---
 
 <div id="faq-modal" class="hidden fixed inset-0 z-70">

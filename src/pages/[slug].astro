@@ -40,19 +40,15 @@ const description = `Brave a spooky ghost hunt through the streets of ${cityTitl
       citySlug={Astro.params.slug}
     />
     <CTA
-      originalTicketPrice={entry.originalTicketPrice}
-      currentTicketPrice={entry.currentTicketPrice}
+      groupTicketPrice={entry.groupTicketPrice}
+      soloTicketPrice={entry.soloTicketPrice}
       ticketSaleLink={ticketSaleLink}
       locationLabel={cityTitleName}
     />
     <div data-reveal>
       <Content cityName={cityTitleName} />
     </div>
-    <FAQModal
-      locationTime={locationTime}
-      originalTicketPrice={entry.originalTicketPrice}
-      currentTicketPrice={entry.currentTicketPrice}
-    />
+    <FAQModal locationTime={locationTime} />
     <div data-glitch-reveal>
       <Gallery
         title="WHAT TO EXPECT"
