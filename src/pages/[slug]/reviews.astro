@@ -133,11 +133,7 @@ const rest = allReviews.filter(r => !featuredReviews.some(f => f.author === r.au
         }
       </div>
     </div>
-    <FAQModal
-      locationTime={entry.locationTime}
-      originalTicketPrice={entry.originalTicketPrice}
-      currentTicketPrice={entry.currentTicketPrice}
-    />
+    <FAQModal locationTime={entry.locationTime} eventDate={entry.eventDate} />
   </main>
 </Layout>
 
