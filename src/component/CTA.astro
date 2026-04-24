@@ -3,6 +3,12 @@ export interface Props {
   groupTicketPrice?: string
   soloTicketPrice?: string
   ticketSaleLink?: string
+  soloTicketLink?: string
+  soloTicketTitle?: string
+  soloButtonLabel?: string
+  groupTicketTitle?: string
+  groupButtonLabel?: string
+  bundleCopy?: string
   locationLabel?: string
 }
 
@@ -10,12 +16,19 @@ const {
   groupTicketPrice = '$37.50',
   soloTicketPrice = '$30',
   ticketSaleLink = '#tickets',
-  locationLabel = 'LOCATION',
+  soloTicketLink,
+  soloTicketTitle = 'Lone Hunter',
+  soloButtonLabel = 'Buy Ticket',
+  groupTicketTitle = 'Team Pass',
+  groupButtonLabel = 'Buy Tickets',
+  bundleCopy,
 } = Astro.props
 
-const ticketAttrs = ticketSaleLink.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}
-const teamHeadline = 'Team Pass'
-const soloHeadline = 'Lone Hunter'
+const groupLink = ticketSaleLink
+const soloLink = soloTicketLink && soloTicketLink.trim() !== '' ? soloTicketLink : ticketSaleLink
+
+const groupAttrs = groupLink.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+const soloAttrs = soloLink.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 ---
 
 <div class="w-full max-w-6xl mx-auto text-white font-hacked">
@@ -23,17 +36,16 @@ const soloHeadline = 'Lone Hunter'
     <div class="cta-content flex flex-col">
       <div>
         <div class="text-2xl leading-tight text-balance tracking-wide pl-16">
-          <span class="glitch" data-text={soloHeadline}>{soloHeadline}</span>
+          <span class="glitch" data-text={soloTicketTitle}>{soloTicketTitle}</span>
         </div>
         <div class="flex items-center pl-22">
-          <span class="text-xl mr-4.5 tracking-wide">ONLY</span>
           <span class="text-[32px] leading-tight tracking-wide">{soloTicketPrice}</span>
         </div>
       </div>
 
-      <a href={ticketSaleLink} class="ml-24 buy-tickets-btn block" {...ticketAttrs}>
+      <a href={soloLink} class="ml-24 buy-tickets-btn block" {...soloAttrs}>
         <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
-        <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
+        <span class="buy-tickets-btn__text tracking-wide">{soloButtonLabel}</span>
       </a>
     </div>
   </div>
@@ -42,58 +54,59 @@ const soloHeadline = 'Lone Hunter'
     <div class="cta-content flex flex-col">
       <div>
         <div class="text-2xl leading-tight text-balance tracking-wide pl-16">
-          <span class="glitch" data-text={teamHeadline}>{teamHeadline}</span>
+          <span class="glitch" data-text={groupTicketTitle}>{groupTicketTitle}</span>
         </div>
         <div class="flex items-center pl-22">
-          <span class="text-xl mr-4.5 tracking-wide">FROM</span>
           <span class="text-[32px] leading-tight tracking-wide">{groupTicketPrice}</span>
         </div>
+        {bundleCopy && (
+          <div class="pl-22 pr-2 text-base text-light-gray tracking-wide font-abeezee mt-1">{bundleCopy}</div>
+        )}
       </div>
 
-      <a href={ticketSaleLink} class="ml-24 buy-tickets-btn block" {...ticketAttrs}>
+      <a href={groupLink} class="ml-24 buy-tickets-btn block" {...groupAttrs}>
         <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
-        <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
+        <span class="buy-tickets-btn__text tracking-wide">{groupButtonLabel}</span>
       </a>
     </div>
   </div>
 
-  <div class="pl-36 py-6 max-w-[760px] ml-16 desktop-cta-wrapper hidden lg:flex relative -translate-y-11">
-    <div class="desktop-cta-wrapper-clip bg-cyan/25 w-full h-full absolute top-0 left-0"></div>
-    <div class="desktop-cta-content flex items-center">
-      <div class="text-center">
-        <div class="text-2xl leading-tight tracking-wide w-max">
-          <span class="glitch" data-text={soloHeadline}>{soloHeadline}</span>
+  <div class="hidden lg:grid grid-cols-2 max-w-[1100px] ml-auto -translate-y-11 gap-6 pr-8">
+    <div class="min-w-0 relative py-6 desktop-cta-card desktop-cta-card--solo">
+      <div class="desktop-cta-card-clip bg-cyan/25 absolute inset-0"></div>
+      <div class="desktop-cta-content relative flex items-center h-full pl-20">
+        <div class="text-center mr-6">
+          <div class="text-2xl leading-tight tracking-wide w-max">
+            <span class="glitch" data-text={soloTicketTitle}>{soloTicketTitle}</span>
+          </div>
+          <div class="text-[32px] leading-tight tracking-wide">{soloTicketPrice}</div>
         </div>
-        <div class="flex items-center">
-          <span class="text-xl mr-4.5 tracking-wide">ONLY</span>
-          <span class="text-[32px] leading-tight tracking-wide">{soloTicketPrice}</span>
-        </div>
-      </div>
 
-      <a href={ticketSaleLink} class="translate-x-1/2 buy-tickets-btn block w-max" {...ticketAttrs}>
-        <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
-        <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
-      </a>
+        <a href={soloLink} class="buy-tickets-btn block w-max" {...soloAttrs}>
+          <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
+          <span class="buy-tickets-btn__text tracking-wide">{soloButtonLabel}</span>
+        </a>
+      </div>
     </div>
-  </div>
 
-  <div class="pl-36 py-6 max-w-[760px] ml-16 desktop-cta-wrapper hidden lg:flex relative translate-x-11">
-    <div class="desktop-cta-wrapper-clip bg-cyan/25 w-full h-full absolute top-0 left-0"></div>
-    <div class="desktop-cta-content flex items-center">
-      <div class="text-center">
-        <div class="text-2xl leading-tight tracking-wide w-max">
-          <span class="glitch" data-text={teamHeadline}>{teamHeadline}</span>
+    <div class="min-w-0 relative py-6 desktop-cta-card desktop-cta-card--group">
+      <div class="desktop-cta-card-clip bg-cyan/25 absolute inset-0"></div>
+      <div class="desktop-cta-content relative flex items-center h-full pl-20">
+        <div class="text-center mr-6">
+          <div class="text-2xl leading-tight tracking-wide w-max">
+            <span class="glitch" data-text={groupTicketTitle}>{groupTicketTitle}</span>
+          </div>
+          <div class="text-[32px] leading-tight tracking-wide">{groupTicketPrice}</div>
+          {bundleCopy && (
+            <div class="text-sm text-light-gray tracking-wide font-abeezee mt-1 w-max">{bundleCopy}</div>
+          )}
         </div>
-        <div class="flex items-center">
-          <span class="text-xl mr-4.5 tracking-wide">FROM</span>
-          <span class="text-[32px] leading-tight tracking-wide">{groupTicketPrice}</span>
-        </div>
+
+        <a href={groupLink} class="buy-tickets-btn block w-max" {...groupAttrs}>
+          <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
+          <span class="buy-tickets-btn__text tracking-wide">{groupButtonLabel}</span>
+        </a>
       </div>
-
-      <a href={ticketSaleLink} class="translate-x-1/2 buy-tickets-btn block w-max" {...ticketAttrs}>
-        <span class="buy-tickets-btn__fill bg-neon" aria-hidden="true"></span>
-        <span class="buy-tickets-btn__text tracking-wide">BUY TICKETS</span>
-      </a>
     </div>
   </div>
 </div>
@@ -103,8 +116,8 @@ const soloHeadline = 'Lone Hunter'
     clip-path: polygon(0 0, 100% 0%, 100% 100%, 21% 100%);
   }
 
-  .desktop-cta-wrapper-clip {
-    clip-path: polygon(0 0, 85% 0%, 100% 100%, 15% 100%);
+  .desktop-cta-card-clip {
+    clip-path: polygon(0 0, 80% 0%, 100% 100%, 23% 100%);
   }
 
   .buy-tickets-btn {
@@ -132,21 +145,27 @@ const soloHeadline = 'Lone Hunter'
     line-height: 1.2;
     letter-spacing: 7%;
     text-transform: uppercase;
+    white-space: nowrap;
   }
 
   @media (min-width: 1024px) {
     .buy-tickets-btn {
       margin-top: 0px;
-      padding: 20px 80px;
-      transform: translateX(-80px);
+      padding: 18px 70px;
       z-index: 2;
       width: max-content;
+    }
+    .desktop-cta-card .buy-tickets-btn {
+      position: absolute;
+      right: -42px;
+      top: 50%;
+      transform: translateY(-50%);
     }
     .buy-tickets-btn__fill {
       clip-path: polygon(0 0, 80% 0%, 100% 100%, 20% 100%);
     }
     .buy-tickets-btn__text {
-      font-size: 28px;
+      font-size: 24px;
     }
   }
 </style>

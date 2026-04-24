@@ -1,9 +1,13 @@
 ---
+import { formatEventDateLabel } from '../lib/formatEventDate'
+
 export interface Props {
   locationTime: string
+  eventDate: unknown
 }
 
-const { locationTime } = Astro.props
+const { locationTime, eventDate } = Astro.props
+const eventDateLabel = formatEventDateLabel(eventDate) || 'TBA'
 ---
 
 <div id="faq-modal" class="hidden fixed inset-0 z-70">
@@ -17,61 +21,60 @@ const { locationTime } = Astro.props
         ✕
       </button>
       <h1 class="text-4xl leading-tight text-light-gray tracking-wide font-hacked mb-4">More Info</h1>
+
       <div class="bg-black/85 rounded-lg p-5 mb-4">
-        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">What you need to know</h2>
+        <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">What You Need to Know</h2>
         <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
           <li>A 45-75min walkable event experience.</li>
-          <li>Hunt ghosts at real locations - uncover eerie stories at multiple locales.</li>
-          <li>Bring a charged phone - to follow clues, track signals, and capture paranormal photos.</li>
-          <li>Your choices your ending - every decision changes your route, points, and ghost encounters.</li>
-          <li>Your team can be any size - immense fun for couples, families, or multiplayer teams.</li>
+          <li><strong>Hunt ghosts at real locations</strong> - uncover eerie stories at multiple locales.</li>
+          <li><strong>Bring a charged phone</strong> - to follow clues, track signals, and capture paranormal photos.</li>
+          <li><strong>Your choices your ending</strong> - every decision changes your route, points, and ghost encounters.</li>
+          <li><strong>Your team can be any size</strong> - immense fun for couples, families, or multiplayer teams.</li>
         </ul>
       </div>
+
       <div class="bg-black/85 rounded-lg p-5 mb-4">
         <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Event Details</h2>
+        <img
+          src="/CYE_v2.webp"
+          alt="Choose Your Ending experience flowchart"
+          class="w-full h-auto rounded mb-4"
+          loading="lazy"
+          decoding="async"
+        />
         <p class="text-lg text-light-gray tracking-wide font-abeezee mb-3">
           Imagine this experience overlaid on your city streets, where each stop happens in a new location. One start
           location, multiple potential paths, 4 endings. Which will you choose?
         </p>
-        <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
-          <li>
-            Grab your ticket - play solo or as a team (no ghost-hunting alone required). Ticket sales end April 28th!
-          </li>
-          <li>Get your secret start location - revealed by email 1 week before</li>
-          <li>Show up & start - anytime on event day between 4–9PM, dress to impress!</li>
-          <li>Live Photographer - on-site at the start location (4-6pm) to capture your moment</li>
-          <li>
-            Play the adventure - The experience unfolds via our custom built app - guiding you from location to
-            location, keeping track of your points, and making the ghosts visible.
-          </li>
-          <li>Take your time - most teams finish in 45–75 mins</li>
-          <li>Make your choices - stick together or split up to unlock up to 4 different endings</li>
-          <li>Share the moment - share your photos of ghost encounters & costumes to win prizes</li>
-          <li>(BONUS) Play again - unlock every haunting, badge and ending with unlimited replays</li>
-        </ul>
+        <ol class="text-lg text-light-gray tracking-wide font-abeezee list-decimal pl-5 space-y-2">
+          <li><strong>Grab your ticket</strong> - play solo or as a team (no ghost-hunting alone required). Ticket sales end April 28th!</li>
+          <li><strong>Get your secret start location</strong> - revealed by email 1 week before</li>
+          <li><strong>Show up & start</strong> - anytime on event day between {locationTime}, dress to impress!</li>
+          <li><strong>Live Photographer</strong> - on-site at the start location (4-6pm) to capture your moment</li>
+          <li><strong>Play the adventure</strong> - The experience unfolds via our custom built app - guiding you from location to location, keeping track of your points, and making the ghosts visible.</li>
+          <li><strong>Take your time</strong> - most teams finish in 45–75 mins</li>
+          <li><strong>Make your choices</strong> - stick together or split up to unlock up to 4 different endings</li>
+          <li><strong>Share the moment</strong> - share your photos of ghost encounters & costumes to win prizes</li>
+          <li><strong>(BONUS) Play again</strong> - unlock every haunting, badge and ending with unlimited replays</li>
+        </ol>
       </div>
+
       <div class="bg-black/85 rounded-lg p-5 mb-4">
         <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">
           How Scary is it & Other FAQs
         </h2>
-        <p class="text-lg text-light-gray tracking-wide font-abeezee mb-3">Scare rating ⭐⭐ ✩✩✩</p>
+        <p class="text-lg text-light-gray tracking-wide font-abeezee mb-3">
+          Scare rating <span class="text-neon">★★</span><span class="text-neon/25">☆☆☆</span>
+        </p>
         <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
-          <li>
-            “Is it scary?” It’s atmospheric and thrilling, designed for mystery lovers. There are no live scare actors
-            present to jump out or grab you.
-          </li>
-          <li>“Do I dress up?” You can! Dress up to win prizes - gothic glam or investigator chic</li>
-          <li>“Can I bring pets?” Yes! Your furry sidekick is welcome.</li>
-          <li>
-            "What if it rains?" The hunt continues! If the weather is severe, we’ll automatically credit your account
-            for a future date of your choice.
-          </li>
-          <li>
-            “Are there age restrictions?” Children and strollers are welcome, content rating is PG-13+, we recommend 13+
-            mostly due to experience length and walking distance for children.
-          </li>
+          <li><strong>“Is it scary?”</strong> It’s atmospheric and thrilling, designed for mystery lovers. There are no live scare actors present to jump out or grab you.</li>
+          <li><strong>“Do I dress up?”</strong> You can! Dress up to win prizes - gothic glam or investigator chic</li>
+          <li><strong>“Can I bring pets?”</strong> Yes! Your furry sidekick is welcome.</li>
+          <li><strong>"What if it rains?"</strong> The hunt continues! If the weather is severe, we’ll automatically credit your account for a future date of your choice.</li>
+          <li><strong>“Are there age restrictions?”</strong> Children and strollers are welcome, content rating is PG-13+, we recommend 13+ mostly due to experience length and walking distance for children.</li>
         </ul>
       </div>
+
       <div class="bg-black/85 rounded-lg p-5 mb-4">
         <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Prizes</h2>
         <p class="text-lg text-light-gray tracking-wide font-abeezee mb-3">
@@ -94,6 +97,7 @@ const { locationTime } = Astro.props
           You'll be battling events in other cities for the top spots so bring your A-game and city pride!
         </p>
       </div>
+
       <div class="bg-black/85 rounded-lg p-5 mb-4">
         <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">About Story City</h2>
         <div class="text-lg text-light-gray tracking-wide font-abeezee space-y-3">
@@ -120,11 +124,12 @@ const { locationTime } = Astro.props
           </p>
         </div>
       </div>
+
       <div class="bg-black/85 rounded-lg p-5 mb-4">
         <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Ticket Info</h2>
         <ul class="text-lg text-light-gray tracking-wide font-abeezee list-disc pl-5 space-y-2">
           <li>Single or Team Ticket available (More people - Better value!)</li>
-          <li>Date: May 16th</li>
+          <li>Date: {eventDateLabel}</li>
           <li>Purchase Tickets By: April 28th</li>
           <li>Start anytime between {locationTime} event day</li>
           <li>👟 Walking: ~1-1.5 miles</li>
@@ -137,6 +142,7 @@ const { locationTime } = Astro.props
           <li>All tickets are digitally delivered to your purchasing email</li>
         </ul>
       </div>
+
       <div class="bg-black/85 rounded-lg p-5 mb-4">
         <h2 class="text-2xl leading-tight text-light-gray tracking-wide font-hacked mb-3">Safety</h2>
         <p class="text-lg text-light-gray tracking-wide font-abeezee mb-3">Our adventures are:</p>
