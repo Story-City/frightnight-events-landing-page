@@ -5,11 +5,11 @@ import Quote from '@component/Quote.astro'
 
 export interface Props {
   cityName?: string
+  locationTime?: string
 }
 
-const { cityName } = Astro.props
-const locationTime = cityName === 'Phoenix' ? '4PM to 9PM' : '12PM to 7PM'
-const discount = cityName === 'Houston' ? '33%' : '20%'
+const { cityName, locationTime } = Astro.props
+const discount = '33%'
 ---
 
 <section class="w-full max-w-6xl mx-auto bg-black text-dark-gray font-compressed relative py-4">
