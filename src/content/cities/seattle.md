@@ -4,8 +4,8 @@ cityName: Seattle
 eventDate: 2026-07-25
 groupTicketPrice: $4.99 pp
 soloTicketPrice: $9.99
-ticketSaleLink: https://www.paypal.com/ncp/payment/5Z5YCBR694WRA
-soloTicketLink: https://www.paypal.com/ncp/payment/5Z5YCBR694WRA
+ticketSaleLink: https://www.paypal.com/ncp/payment/KMKFN4BLN3C5E
+soloTicketLink: https://www.paypal.com/ncp/payment/KMKFN4BLN3C5E
 soloTicketTitle: Lone Hunter
 soloButtonLabel: Buy Ticket
 groupTicketTitle: Team Pass
